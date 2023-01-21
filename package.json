@@ -11,7 +11,7 @@
     "dev:remix": "remix watch",
     "dev:wrangler": "cross-env NODE_ENV=development yarn wrangler",
     "dev": "remix build && run-p \"dev:*\"",
-    "generate:css": "yarn tailwindcss -o ./app/tailwind.css",
+    "generate:css": "yarn tailwindcss -i ./styles/tailwind.css -o ./app/tailwind.css",
     "start": "cross-env NODE_ENV=production yarn wrangler",
     "wrangler": "wrangler pages dev ./public --compatibility-date=2023-01-01"
   },
