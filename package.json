@@ -1,4 +1,6 @@
 {
+  "name": "propertysearch",
+  "packageManager": "yarn@3.3.1",
   "private": true,
   "sideEffects": false,
   "scripts": {
