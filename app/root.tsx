@@ -25,8 +25,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-sky-200/50">
-        <header className="flex justify-center">
+      <body className="bg-blue-100/50">
+        <header>
           <svg
             className="mt-5 ml-5"
             fill="#FA8128"
