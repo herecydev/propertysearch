@@ -1,22 +1,30 @@
-export default function Index() {
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import PropertyCard from "~/components/propertyCard";
+import Search from "~/components/search";
+import { getProperties } from "~/models/properties.server";
+
+export const loader = async () => {
+  return json({
+    properties: await getProperties(),
+  });
+};
+
+const Index = () => {
+  const { properties } = useLoaderData<typeof loader>();
+
   return (
-    <div className="flex justify-center mt-20">
-      <section className="flex flex-col items-center w-1/2 bg-white rounded-md p-8">
-        <p className="text-lg font-bold">
-          Find the perfect property today to buy or rent
-        </p>
-        <form method="get" className="flex justify-between w-full gap-3 mt-7">
-          <input
-            aria-label="Location"
-            name="search"
-            placeholder="Brisbane"
-            className="border border-slate-400 rounded-md px-3 py-2 w-full"
-          />
-          <button className="bg-emerald-300 rounded-md px-4 font-bold">
-            Search
-          </button>
-        </form>
+    <main>
+      <div className="flex justify-center my-28">
+        <Search />
+      </div>
+      <section className="grid grid-cols-3 m-16 gap-5">
+        {properties.map((property) => (
+          <PropertyCard key={property.id} property={property} />
+        ))}
       </section>
-    </div>
+    </main>
   );
-}
+};
+
+export default Index;

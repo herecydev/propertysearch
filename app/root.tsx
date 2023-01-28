@@ -28,7 +28,7 @@ export default function App() {
       <body className="bg-blue-100/50">
         <header>
           <svg
-            className="mt-5 ml-5"
+            className="mt-8 ml-8"
             fill="#FA8128"
             width="80px"
             height="80px"
