@@ -25,11 +25,11 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-blue-100/50">
+      <body className="bg-blue-100/50 m-4">
         <header>
           <svg
-            className="mt-8 ml-8"
-            fill="#FA8128"
+            className="mt-5 ml-5"
+            fill="#6ee7b7"
             width="80px"
             height="80px"
             viewBox="0 0 495.398 495.398"

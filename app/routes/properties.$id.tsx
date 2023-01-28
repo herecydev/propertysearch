@@ -1,5 +1,6 @@
 import { json, LoaderArgs, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import PropertyDetails from "~/components/propertyDetails";
 import { getProperties } from "~/models/properties.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
@@ -20,7 +21,7 @@ export const loader = async ({ params }: LoaderArgs) => {
 const Property = () => {
   const { property } = useLoaderData<typeof loader>();
 
-  return <h1>{property.name}</h1>;
+  return <PropertyDetails property={property} />;
 };
 
 export default Property;
