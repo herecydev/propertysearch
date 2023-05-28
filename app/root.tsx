@@ -1,4 +1,4 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -12,11 +12,17 @@ import styles from "./tailwind.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Property search",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: V2_MetaFunction = () => [
+  {
+    title: "Property search",
+  },
+  {
+    charset: "utf-8",
+  },
+  {
+    viewport: "width=device-width",
+  },
+];
 
 export default function App() {
   return (

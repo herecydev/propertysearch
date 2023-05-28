@@ -22,7 +22,7 @@ const Index = () => {
 
   return (
     <main>
-      <div className="flex justify-center my-28">
+      <div className="flex justify-center my-20">
         <Search />
       </div>
       <section className="container mx-auto grid grid-cols-3 gap-5">
