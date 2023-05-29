@@ -7,3 +7,7 @@ This isn't obviously exhaustive but covers:
 * Automated testing
 
 Stying isn't meant to be perfect, I'm no designer 🙈
+
+## Running
+
+`yarn` to install, `yarn dev` to run the app and `yarn test` to run all the tests/
