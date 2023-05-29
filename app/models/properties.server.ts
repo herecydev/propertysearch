@@ -1,6 +1,7 @@
 export type Property = {
   id: string;
   name: string;
+  price: number;
   shortDescription: string;
   description: string[];
   address: string;
@@ -10,7 +11,13 @@ export type Property = {
 const loremIpsum =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at tortor a orci dapibus semper eu a diam. Donec blandit nibh quis dapibus faucibus. Etiam in nisi eget nunc luctus efficitur ut ut felis. Donec nibh ante, rhoncus in pretium sit amet, placerat at nisi. Phasellus vitae blandit ligula. Fusce tempor justo non mi feugiat, quis ultricies ante pharetra. Suspendisse varius faucibus elit, a posuere neque.";
 
-const description = [loremIpsum, loremIpsum, loremIpsum, loremIpsum, loremIpsum];
+const description = [
+  loremIpsum,
+  loremIpsum,
+  loremIpsum,
+  loremIpsum,
+  loremIpsum,
+];
 
 const artificialDelay = async () =>
   await new Promise((resolve) => setTimeout(resolve, 100));
@@ -20,6 +27,7 @@ export const getProperties = async () => {
     {
       id: "1",
       name: "Modern 3-bed flat",
+      price: 400000,
       shortDescription: "Built in 2020 and decorated to the highest standard",
       description,
       address: "River side way",
@@ -29,6 +37,7 @@ export const getProperties = async () => {
     {
       id: "2",
       name: "Traditional cottage",
+      price: 500000,
       shortDescription:
         "An English style cottage, situated on 3 acres of land with wooden beams",
       description,
@@ -39,6 +48,7 @@ export const getProperties = async () => {
     {
       id: "3",
       name: "Farm land",
+      price: 200000,
       shortDescription:
         "10 acres of land with planning permission for a 4 bed property, situated near the city of Ipswich",
       description,
@@ -49,6 +59,7 @@ export const getProperties = async () => {
     {
       id: "4",
       name: "Suburb dream house",
+      price: 600000,
       shortDescription:
         "Renovated property complete with swimming pool and tennis court",
       description,
