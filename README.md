@@ -1,5 +1,3 @@
-# propertysearch
-
 A simple property search application built in react with the help of [Remix](https://remix.run/) and tested using [Cypress](https://www.cypress.io/).
 This isn't obviously exhaustive but covers:
 
