@@ -56,7 +56,7 @@ const Property = () => {
   return (
     <main className="mt-10 gap-4 flex justify-center max-lg:flex-wrap">
       <PropertyDetails property={property} />
-      <section className="bg-white rounded-md p-5 h-max">
+      <section data-testid="finance" className="bg-white rounded-md p-5 h-max">
         <h1 className="text-2xl text-center">Estimated mortgage costs</h1>
         <Form method="post" className="flex flex-col items-center">
           <div className="mx-6 my-4">

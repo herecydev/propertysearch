@@ -25,7 +25,10 @@ const Index = () => {
       <div className="flex justify-center my-20">
         <Search />
       </div>
-      <section className="container mx-auto grid grid-cols-3 gap-5">
+      <section
+        data-testid="properties"
+        className="container mx-auto grid grid-cols-3 gap-5"
+      >
         {properties.map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}

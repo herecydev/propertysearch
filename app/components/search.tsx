@@ -1,7 +1,10 @@
 import Button from "./button";
 
 const Search = () => (
-  <section className="flex flex-col items-center w-1/2 bg-white rounded-md p-6">
+  <section
+    data-testid="search"
+    className="flex flex-col items-center w-1/2 bg-white rounded-md p-6"
+  >
     <p className="text-lg font-bold">
       Find the perfect property today to buy or rent
     </p>
