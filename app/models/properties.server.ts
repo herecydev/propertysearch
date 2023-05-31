@@ -19,6 +19,7 @@ const description = [
   loremIpsum,
 ];
 
+// This function only exists to simulate some async/database slowdown
 const artificialDelay = async () =>
   await new Promise((resolve) => setTimeout(resolve, 100));
 
