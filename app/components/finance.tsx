@@ -1,7 +1,7 @@
 import { Form, useActionData, useSubmit } from "@remix-run/react";
 import Input from "./input";
 import Button from "./button";
-import { action } from "~/routes/properties.$id";
+import type { action } from "~/routes/properties.$id";
 import { currencyFormat } from "~/utilities/intl";
 
 const Finance = () => {
