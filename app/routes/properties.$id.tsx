@@ -4,6 +4,7 @@ import Button from "~/components/button";
 import Input from "~/components/input";
 import PropertyDetails from "~/components/propertyDetails";
 import { getProperties } from "~/models/properties.server";
+import { currencyFormat } from "~/utilities/intl";
 
 export const loader = async ({ params }: LoaderArgs) => {
   const properties = await getProperties();
@@ -43,12 +44,6 @@ export const action = async ({ request, params }: ActionArgs) => {
   });
 };
 
-const numberFormat = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0
-});
-
 const Property = () => {
   const { property } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
@@ -75,7 +70,7 @@ const Property = () => {
           </div>
           {actionData?.monthlyCost && (
             <strong className="mb-4">
-              Monthly cost: {numberFormat.format(actionData.monthlyCost)}
+              Monthly cost: {currencyFormat.format(actionData.monthlyCost)}
             </strong>
           )}
           <Button>Calculate</Button>

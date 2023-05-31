@@ -1,5 +1,6 @@
 import { Link } from "@remix-run/react";
 import { Property } from "~/models/properties.server";
+import { currencyFormat } from "~/utilities/intl";
 
 const PropertyCard = ({ property }: { property: Property }) => (
   <article
@@ -18,8 +19,9 @@ const PropertyCard = ({ property }: { property: Property }) => (
         src={property.image}
       />
       <div className="p-4">
-        <header className="font-bold text-center">
-          <h1>{property.name}</h1>
+        <header className="text-center mb-2">
+          <h1 className="font-bold">{property.name}</h1>
+          <span>{currencyFormat.format(property.price)}</span>
         </header>
         <p>{property.shortDescription}</p>
       </div>
