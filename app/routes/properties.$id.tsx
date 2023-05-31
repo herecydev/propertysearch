@@ -46,10 +46,7 @@ export const action = async ({ request, params }: ActionArgs) => {
 const Property = () => (
   <main className="mt-10 gap-4 flex justify-center max-lg:flex-wrap">
     <PropertyDetails />
-    <section data-testid="finance" className="bg-white rounded-md p-5 h-max">
-      <h1 className="text-2xl text-center">Estimated mortgage costs</h1>
-      <Finance />
-    </section>
+    <Finance />
   </main>
 );
 
