@@ -33,6 +33,19 @@ describe("Property search", () => {
       cy.get(`[data-testid="property-${firstProperty.id}"]`).click();
       cy.url().should("include", `/properties/${firstProperty.id}`);
     });
+
+    it("Displays back link if there are no properties", () => {
+      cy.get("[data-testid='search']").within(() => {
+        cy.get("input").type("foo bar");
+        cy.get("button").click();
+      });
+
+      cy.get(`[data-testid="properties"]`).should("not.exist");
+      cy.contains("Sorry, we can't find any properties!")
+      cy.contains("Try again.").click()
+
+      cy.get(`[data-testid="properties"]`).children().should("have.length", properties.length);
+    });
   });
 
   describe("Property page", () => {

@@ -1,3 +1,4 @@
+import { Form } from "@remix-run/react";
 import Button from "./button";
 
 const Search = () => (
@@ -8,7 +9,7 @@ const Search = () => (
     <p className="text-lg font-bold">
       Find the perfect property today to buy or rent
     </p>
-    <form method="get" className="flex justify-between w-full gap-3 mt-7">
+    <Form method="get" className="flex justify-between w-full gap-3 mt-7">
       <input
         aria-label="Location"
         name="search"
@@ -16,7 +17,7 @@ const Search = () => (
         className="border border-slate-400 rounded-md px-3 w-full"
       />
       <Button>Search</Button>
-    </form>
+    </Form>
   </section>
 );
 

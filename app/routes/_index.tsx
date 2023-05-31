@@ -1,5 +1,5 @@
 import { json, LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import PropertyCard from "~/components/propertyCard";
 import Search from "~/components/search";
 import { getProperties } from "~/models/properties.server";
@@ -25,14 +25,23 @@ const Index = () => {
       <div className="flex justify-center my-20">
         <Search />
       </div>
-      <section
-        data-testid="properties"
-        className="container mx-auto grid grid-cols-3 gap-5"
-      >
-        {properties.map((property) => (
-          <PropertyCard key={property.id} property={property} />
-        ))}
-      </section>
+      {properties.length ? (
+        <section
+          data-testid="properties"
+          className="container mx-auto grid grid-cols-3 gap-5"
+        >
+          {properties.map((property) => (
+            <PropertyCard key={property.id} property={property} />
+          ))}
+        </section>
+      ) : (
+        <div className="text-center">
+          Sorry, we can't find any properties!
+          <Link to="/" className="text-emerald-700 ms-1">
+            Try again.
+          </Link>
+        </div>
+      )}
     </main>
   );
 };
