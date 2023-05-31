@@ -34,9 +34,9 @@ const Finance = () => {
         />
       </div>
       {actionData && (
-        <strong className="mb-4">
-          Monthly cost: {currencyFormat.format(actionData.monthlyCost)}
-        </strong>
+        <span className="mb-6 font-light text-3xl">
+          {currencyFormat.format(actionData.monthlyCost)} <span className="text-xl">/month</span>
+        </span>
       )}
       <Button>Calculate</Button>
     </Form>

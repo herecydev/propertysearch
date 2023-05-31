@@ -71,12 +71,12 @@ describe("Property search", () => {
         cy.get("[name='mortgageTerm']").should("have.value", 30);
 
         cy.get("button").click();
-        cy.contains("Monthly cost: $2,611");
+        cy.contains("$2,611 /month");
 
         // Check that the interest rate/term does influence the value
         cy.get("[name='mortgageTerm']").clear().type("10");
         cy.get("button").click();
-        cy.contains("Monthly cost: $4,833");
+        cy.contains("$4,833 /month");
       });
     });
   });
