@@ -28,14 +28,14 @@ export const loader = async ({ params }: LoaderArgs) => {
 
 export const action = async ({ request, params }: ActionArgs) => {
   const formData = await request.formData();
-  const interest = formData.get("mortgage-interest");
-  const term = formData.get("mortgage-term");
+  const interest = formData.get("mortgageInterest");
+  const term = formData.get("mortgageTerm");
 
   const properties = await getProperties();
   const property = properties.find((property) => property.id == params.id);
 
   if (!interest || !term || !property) {
-    return json({ monthlyCost: 0 });
+    throw new Error();
   }
 
   // This is totally not how you calculate compound interest 😂
@@ -45,6 +45,8 @@ export const action = async ({ request, params }: ActionArgs) => {
   const monthlyCost = total / +term / 12;
 
   return json({
+    mortgageInterest: interest,
+    mortgageTerm: term,
     monthlyCost,
   });
 };
@@ -70,16 +72,16 @@ const Property = () => {
         >
           <div className="mx-6 my-4">
             <Input
-              name="mortgage-interest"
+              name="mortgageInterest"
               maxLength={5}
-              defaultValue={4.5}
+              defaultValue={actionData?.mortgageInterest || 4.5}
               label="Interest Rate"
             />
             <Input
-              name="mortgage-term"
+              name="mortgageTerm"
               maxLength={2}
               label="Mortgage term"
-              defaultValue={30}
+              defaultValue={actionData?.mortgageTerm || 30}
             />
           </div>
           {actionData && (

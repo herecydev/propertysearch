@@ -67,14 +67,14 @@ describe("Property search", () => {
         cy.contains("Estimated mortgage costs");
 
         // Check default values
-        cy.get("[name='mortgage-interest']").should("have.value", 4.5);
-        cy.get("[name='mortgage-term']").should("have.value", 30);
+        cy.get("[name='mortgageInterest']").should("have.value", 4.5);
+        cy.get("[name='mortgageTerm']").should("have.value", 30);
 
         cy.get("button").click();
         cy.contains("Monthly cost: $2,611");
 
         // Check that the interest rate/term does influence the value
-        cy.get("[name='mortgage-term']").clear().type("10");
+        cy.get("[name='mortgageTerm']").clear().type("10");
         cy.get("button").click();
         cy.contains("Monthly cost: $4,833");
       });
