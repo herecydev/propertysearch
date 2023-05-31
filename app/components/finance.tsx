@@ -14,7 +14,8 @@ const Finance = () => {
       className="flex flex-col items-center"
       onChange={(evt) => {
         // I love this progressive enhancement 🤩
-        // it works without javascript but we're making the value submit as the user types on the client
+        // it works without javascript but if we do have it
+        // we're making the value submit as the user types on the client
         submit(evt.currentTarget);
       }}
     >
