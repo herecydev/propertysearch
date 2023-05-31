@@ -1,5 +1,10 @@
 import { ActionArgs, json, LoaderArgs, redirect } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useSubmit,
+} from "@remix-run/react";
 import Button from "~/components/button";
 import Input from "~/components/input";
 import PropertyDetails from "~/components/propertyDetails";
@@ -47,13 +52,22 @@ export const action = async ({ request, params }: ActionArgs) => {
 const Property = () => {
   const { property } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
+  const submit = useSubmit();
 
   return (
     <main className="mt-10 gap-4 flex justify-center max-lg:flex-wrap">
       <PropertyDetails property={property} />
       <section data-testid="finance" className="bg-white rounded-md p-5 h-max">
         <h1 className="text-2xl text-center">Estimated mortgage costs</h1>
-        <Form method="post" className="flex flex-col items-center">
+        <Form
+          method="post"
+          className="flex flex-col items-center"
+          onChange={(evt) => {
+            // I love this progressive enhancement 🤩
+            // it works without javascript but we're making the value submit as the user types on the client
+            submit(evt.currentTarget);
+          }}
+        >
           <div className="mx-6 my-4">
             <Input
               name="mortgage-interest"
@@ -68,7 +82,7 @@ const Property = () => {
               defaultValue={30}
             />
           </div>
-          {actionData?.monthlyCost && (
+          {actionData && (
             <strong className="mb-4">
               Monthly cost: {currencyFormat.format(actionData.monthlyCost)}
             </strong>
