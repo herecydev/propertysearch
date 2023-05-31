@@ -1,5 +1,4 @@
 import { ActionArgs, json, LoaderArgs, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import Finance from "~/components/finance";
 import PropertyDetails from "~/components/propertyDetails";
 import { getProperties } from "~/models/properties.server";
@@ -44,18 +43,14 @@ export const action = async ({ request, params }: ActionArgs) => {
   });
 };
 
-const Property = () => {
-  const { property } = useLoaderData<typeof loader>();
-
-  return (
-    <main className="mt-10 gap-4 flex justify-center max-lg:flex-wrap">
-      <PropertyDetails property={property} />
-      <section data-testid="finance" className="bg-white rounded-md p-5 h-max">
-        <h1 className="text-2xl text-center">Estimated mortgage costs</h1>
-        <Finance />
-      </section>
-    </main>
-  );
-};
+const Property = () => (
+  <main className="mt-10 gap-4 flex justify-center max-lg:flex-wrap">
+    <PropertyDetails />
+    <section data-testid="finance" className="bg-white rounded-md p-5 h-max">
+      <h1 className="text-2xl text-center">Estimated mortgage costs</h1>
+      <Finance />
+    </section>
+  </main>
+);
 
 export default Property;
