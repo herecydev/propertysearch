@@ -3,6 +3,7 @@ This isn't obviously exhaustive but covers:
 
 * Fundamental React principles & building blocks
 * Integrating with a server to get SSR, data fetching and the whole application works without javascript! Accessibility 🚀
+* Typescript
 * An approach to styling using tailwind
 * Automated testing
 
