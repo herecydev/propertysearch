@@ -1,4 +1,5 @@
 import { properties } from "~/models/properties.server";
+import { currencyFormat } from "~/utilities/intl";
 
 const firstProperty = properties[0];
 
@@ -12,6 +13,7 @@ describe("Property search", () => {
       for (const property of properties) {
         cy.get(`[data-testid="property-${property.id}"]`).within(() => {
           cy.contains(property.name);
+          cy.contains(currencyFormat.format(property.price));
           cy.contains(property.shortDescription);
         });
       }
@@ -40,6 +42,7 @@ describe("Property search", () => {
 
     it("Allows a user to view property details", () => {
       cy.contains(firstProperty.name);
+      cy.contains(currencyFormat.format(firstProperty.price));
 
       for (const description of firstProperty.description) {
         cy.contains(description);
