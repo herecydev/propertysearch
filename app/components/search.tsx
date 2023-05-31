@@ -11,6 +11,7 @@ const Search = () => (
     </p>
     <Form method="get" className="flex justify-between w-full gap-3 mt-7">
       <input
+        required
         aria-label="Location"
         name="search"
         placeholder="Brisbane"
