@@ -12,14 +12,9 @@ const PropertyCard = ({ property }: { property: Property }) => (
       to={`/properties/${property.id}`}
       prefetch="intent"
     >
-      <img
-        className="rounded-t-md"
-        width={500}
-        height={500}
-        src={property.image}
-      />
+      <img className="rounded-t-md" src={property.image} />
       <div className="p-4">
-        <header className="text-center mb-2">
+        <header className="flex justify-between mb-2 text-lg">
           <h1 className="font-bold">{property.name}</h1>
           <span>{currencyFormat.format(property.price)}</span>
         </header>

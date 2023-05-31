@@ -22,13 +22,13 @@ const Index = () => {
 
   return (
     <main>
-      <div className="flex justify-center my-20">
+      <div className="flex justify-center my-10 sm:my-20">
         <Search />
       </div>
       {properties.length ? (
         <section
           data-testid="properties"
-          className="container mx-auto grid grid-cols-3 gap-5"
+          className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"
         >
           {properties.map((property) => (
             <PropertyCard key={property.id} property={property} />
