@@ -1,3 +1,5 @@
+import { DanKirkham, EstateAgent, DaveSmith } from "./estateAgents.server";
+
 export type Property = {
   id: string;
   name: string;
@@ -6,6 +8,7 @@ export type Property = {
   description: string[];
   address: string;
   image: string;
+  estateAgent: EstateAgent;
 };
 
 const loremIpsum =
@@ -33,6 +36,7 @@ export const properties: Property[] = [
     address: "River side way",
     image:
       "https://i2.au.reastatic.net/800x600/2959aaf30fede4dcd11f2b03071c869e0043e732c094b4fc463247e928cdbc1b/image.jpg",
+    estateAgent: DanKirkham,
   },
   {
     id: "2",
@@ -44,7 +48,9 @@ export const properties: Property[] = [
     address: "Country side",
     image:
       "https://i2.au.reastatic.net/800x600/04b220bcc2f78b0212edb1c458be52762049d8a5ca8844bc45879e409074f3c0/image.jpg",
+    estateAgent: DaveSmith,
   },
+
   {
     id: "3",
     name: "Farm land",
@@ -55,6 +61,7 @@ export const properties: Property[] = [
     address: "Country side",
     image:
       "https://i2.au.reastatic.net/800x600/fe82d613bd934aa1d20a48a2fc5357e8ebbe877505da9311b84449d22b40fdec/image.jpg",
+    estateAgent: DanKirkham,
   },
   {
     id: "4",
@@ -66,6 +73,7 @@ export const properties: Property[] = [
     address: "Outskirts of Brisbane",
     image:
       "https://i2.au.reastatic.net/800x600/5dbdc137c0bed22bb949e688e9f8efbbb312513c08d9c2d9666b12b041fd2a4b/image.jpg",
+    estateAgent: DaveSmith,
   },
 ];
 

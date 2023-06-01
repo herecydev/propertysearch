@@ -51,7 +51,7 @@ const Index = () => {
             onClick={() => {
               setSearch("");
             }}
-            className="text-emerald-700 ms-1"
+            className="text-emerald-700 ms-1 underline"
           >
             Try again.
           </Link>

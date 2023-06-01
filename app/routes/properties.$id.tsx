@@ -1,5 +1,6 @@
 import { ActionArgs, json, LoaderArgs, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
 import { getProperties } from "~/models/properties.server";
@@ -51,6 +52,7 @@ const Property = () => {
     <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
       <PropertyCard property={property} summary={false} />
       <div className="flex lg:flex-col gap-6">
+        <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />
       </div>
     </main>

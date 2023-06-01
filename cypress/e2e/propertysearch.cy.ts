@@ -41,10 +41,12 @@ describe("Property search", () => {
       });
 
       cy.get(`[data-testid="properties"]`).should("not.exist");
-      cy.contains("Sorry, we can't find any properties!")
-      cy.contains("Try again.").click()
+      cy.contains("Sorry, we can't find any properties!");
+      cy.contains("Try again.").click();
 
-      cy.get(`[data-testid="properties"]`).children().should("have.length", properties.length);
+      cy.get(`[data-testid="properties"]`)
+        .children()
+        .should("have.length", properties.length);
     });
   });
 
@@ -60,6 +62,18 @@ describe("Property search", () => {
       for (const description of firstProperty.description) {
         cy.contains(description);
       }
+
+      cy.get("[data-testid='estateAgentProfile']").within(() => {
+        const estateAgent = firstProperty.estateAgent;
+
+        cy.contains(estateAgent.name);
+        cy.contains(`“${estateAgent.quote}”`);
+        cy.contains("Contact estate agent").should(
+          "have.attr",
+          "href",
+          `mailto:${estateAgent.email}`
+        );
+      });
     });
 
     it("Allows a user to get an estimate mortgage cost", () => {
