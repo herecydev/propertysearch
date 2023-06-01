@@ -1,8 +1,26 @@
 import { Form, useActionData, useSubmit } from "@remix-run/react";
-import Input from "./input";
-import Button from "./button";
+import { ComponentPropsWithoutRef } from "react";
 import type { action } from "~/routes/properties.$id";
 import { currencyFormat } from "~/utilities/intl";
+import Button from "./button";
+
+const Input = ({
+  label,
+  ...rest
+}: {
+  label: string;
+} & ComponentPropsWithoutRef<"input">) => {
+  return (
+    <div className="my-5 flex flex-col gap-1">
+      <label>{label}</label>
+      <input
+        {...rest}
+        required
+        className="border-2 border-emerald-200 py-1 text-center text-2xl focus:outline-none rounded-sm"
+      />
+    </div>
+  );
+};
 
 const Finance = () => {
   const actionData = useActionData<typeof action>();

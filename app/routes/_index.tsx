@@ -28,10 +28,16 @@ const Index = () => {
       {properties.length ? (
         <section
           data-testid="properties"
-          className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"
+          className="xl:container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"
         >
           {properties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
+            <Link to={`/properties/${property.id}`} prefetch="intent">
+              <PropertyCard
+                key={property.id}
+                property={property}
+                summary={true}
+              />
+            </Link>
           ))}
         </section>
       ) : (

@@ -1,6 +1,7 @@
 import { ActionArgs, json, LoaderArgs, redirect } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import Finance from "~/components/finance";
-import PropertyDetails from "~/components/propertyDetails";
+import PropertyCard from "~/components/propertyCard";
 import { getProperties } from "~/models/properties.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
@@ -43,11 +44,17 @@ export const action = async ({ request, params }: ActionArgs) => {
   });
 };
 
-const Property = () => (
-  <main className="mt-10 gap-4 flex justify-center max-lg:flex-wrap">
-    <PropertyDetails />
-    <Finance />
-  </main>
-);
+const Property = () => {
+  const { property } = useLoaderData<typeof loader>();
+
+  return (
+    <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
+      <PropertyCard property={property} summary={false} />
+      <div className="flex lg:flex-col gap-6">
+        <Finance />
+      </div>
+    </main>
+  );
+};
 
 export default Property;
