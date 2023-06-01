@@ -10,12 +10,12 @@ const PropertyCard = ({
 }) => (
   <article
     data-testid={`property-${property.id}`}
-    className={`bg-white rounded-md flex flex-col h-full ${
+    className={`bg-white rounded-md flex flex-col max-w-xl h-full ${
       summary && "hover:bg-emerald-300"
     }`}
   >
     <img className="rounded-t-md" src={property.image} />
-    <div className={`p-4 max-w-xl ${!summary && "mx-auto"}`}>
+    <div className={`p-4 ${!summary && "mx-auto"}`}>
       <header className="flex justify-between gap-4 mb-2 text-lg">
         <h1 className="font-bold">{property.name}</h1>
         <span>{currencyFormat.format(property.price)}</span>

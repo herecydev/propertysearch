@@ -1,5 +1,6 @@
 import { json, LoaderArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
+import { useState } from "react";
 import PropertyCard from "~/components/propertyCard";
 import Search from "~/components/search";
 import { getProperties } from "~/models/properties.server";
@@ -19,11 +20,13 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 const Index = () => {
   const { properties } = useLoaderData<typeof loader>();
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("search") || "");
 
   return (
     <main>
       <div className="flex justify-center my-10 sm:my-20">
-        <Search />
+        <Search search={search} setSearch={setSearch} />
       </div>
       {properties.length ? (
         <section
@@ -43,7 +46,13 @@ const Index = () => {
       ) : (
         <div className="text-center">
           Sorry, we can't find any properties!
-          <Link to="/" className="text-emerald-700 ms-1">
+          <Link
+            to="/"
+            onClick={() => {
+              setSearch("");
+            }}
+            className="text-emerald-700 ms-1"
+          >
             Try again.
           </Link>
         </div>
