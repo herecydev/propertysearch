@@ -31,12 +31,12 @@ const Index = () => {
           className="xl:container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"
         >
           {properties.map((property) => (
-            <Link to={`/properties/${property.id}`} prefetch="intent">
-              <PropertyCard
-                key={property.id}
-                property={property}
-                summary={true}
-              />
+            <Link
+              key={property.id}
+              to={`/properties/${property.id}`}
+              prefetch="intent"
+            >
+              <PropertyCard property={property} summary={true} />
             </Link>
           ))}
         </section>
