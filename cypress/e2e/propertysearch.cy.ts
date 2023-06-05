@@ -14,6 +14,8 @@ describe("Property search", () => {
         cy.get(`[data-testid="property-${property.id}"]`).within(() => {
           cy.contains(property.name);
           cy.contains(currencyFormat.format(property.price));
+          cy.contains(`${property.bedrooms} bedrooms`);
+          cy.contains(`${property.bathrooms} bathrooms`);
           cy.contains(property.shortDescription);
         });
       }
@@ -58,6 +60,8 @@ describe("Property search", () => {
     it("Allows a user to view property details", () => {
       cy.contains(firstProperty.name);
       cy.contains(currencyFormat.format(firstProperty.price));
+      cy.contains(`${firstProperty.bedrooms} bedrooms`);
+      cy.contains(`${firstProperty.bathrooms} bathrooms`);
 
       for (const description of firstProperty.description) {
         cy.contains(description);
