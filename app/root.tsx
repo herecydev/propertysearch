@@ -32,7 +32,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-blue-100/50 m-5">
+      <body className="bg-blue-100/50 m-3 md:m-6">
         <header>
           <Icon />
         </header>
