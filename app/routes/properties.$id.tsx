@@ -3,11 +3,9 @@ import { useLoaderData } from "@remix-run/react";
 import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
-import { getProperties } from "~/models/properties.server";
+import { properties } from "~/models/properties.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
-  const properties = await getProperties();
-
   if (!params.id) {
     return redirect("/");
   }
@@ -25,7 +23,6 @@ export const action = async ({ request, params }: ActionArgs) => {
   const interest = formData.get("mortgageInterest");
   const term = formData.get("mortgageTerm");
 
-  const properties = await getProperties();
   const property = properties.find((property) => property.id == params.id);
 
   if (!interest || !term || !property) {

@@ -24,10 +24,6 @@ const description = [
   loremIpsum,
 ];
 
-// This function only exists to simulate some async/database slowdown
-const artificialDelay = async () =>
-  await new Promise((resolve) => setTimeout(resolve, 100));
-
 export const properties: Property[] = [
   {
     id: "1",
@@ -86,9 +82,3 @@ export const properties: Property[] = [
     estateAgent: DaveSmith,
   },
 ];
-
-export const getProperties = async () => {
-  await artificialDelay();
-
-  return properties;
-};

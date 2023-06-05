@@ -3,10 +3,9 @@ import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import PropertyCard from "~/components/propertyCard";
 import Search from "~/components/search";
-import { getProperties } from "~/models/properties.server";
+import { properties } from "~/models/properties.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const properties = await getProperties();
   const search = new URL(request.url).searchParams.get("search");
 
   return json({
