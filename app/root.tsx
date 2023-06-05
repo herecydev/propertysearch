@@ -9,7 +9,7 @@ import {
 } from "@remix-run/react";
 
 import styles from "./tailwind.css";
-import Icon from "./components/icon";
+import Icon from "./components/icons/home";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
