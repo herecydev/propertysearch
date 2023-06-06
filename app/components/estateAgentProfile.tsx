@@ -1,4 +1,4 @@
-import type { EstateAgent } from "~/models/estateAgents.server";
+import { EstateAgent } from "~/models/estateAgent";
 
 const EstateAgentProfile = ({ estateAgent }: { estateAgent: EstateAgent }) => {
   return (

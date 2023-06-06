@@ -3,15 +3,16 @@ import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import PropertyCard from "~/components/propertyCard";
 import Search from "~/components/search";
-import { properties } from "~/models/properties.server";
+import { getProperties } from "~/data/properties.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const search = new URL(request.url).searchParams.get("search");
+  const properties = await getProperties();
 
   return json({
     properties: search
       ? properties.filter((property) =>
-          property.name.toLowerCase().includes(search.toLowerCase())
+          property.title.toLowerCase().includes(search.toLowerCase())
         )
       : properties,
   });
@@ -38,7 +39,7 @@ const Index = () => {
               to={`/properties/${property.id}`}
               prefetch="intent"
             >
-              <PropertyCard property={property} summary={true} />
+              <PropertyCard property={property} />
             </Link>
           ))}
         </section>

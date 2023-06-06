@@ -3,15 +3,14 @@ import { useLoaderData } from "@remix-run/react";
 import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
-import { properties } from "~/models/properties.server";
+import { getProperty } from "~/data/properties.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
   if (!params.id) {
     return redirect("/");
   }
 
-  const property = properties.find((property) => property.id == params.id);
-  if (!property) throw new Response("", { status: 404 });
+  const property = await getProperty(params.id);
 
   return json({
     property,
@@ -19,15 +18,15 @@ export const loader = async ({ params }: LoaderArgs) => {
 };
 
 export const action = async ({ request, params }: ActionArgs) => {
-  const formData = await request.formData();
-  const interest = formData.get("mortgageInterest");
-  const term = formData.get("mortgageTerm");
-
-  const property = properties.find((property) => property.id == params.id);
-
-  if (!interest || !term || !property) {
-    throw new Error();
+  if (!params.id) {
+    return redirect("/");
   }
+
+  const formData = await request.formData();
+  const interest = formData.get("mortgageInterest") ?? 0;
+  const term = formData.get("mortgageTerm") ?? 0;
+
+  const property = await getProperty(params.id);
 
   // This is totally not how you calculate compound interest 😂
   const annualInterest = property.price * (+interest / 100);
@@ -47,7 +46,7 @@ const Property = () => {
 
   return (
     <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
-      <PropertyCard property={property} summary={false} />
+      <PropertyCard property={property} />
       <div className="flex flex-col gap-6">
         <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />
