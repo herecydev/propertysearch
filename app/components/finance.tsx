@@ -27,7 +27,7 @@ const Finance = () => {
   const submit = useSubmit();
 
   return (
-    <section data-testid="finance" className="bg-white rounded-md p-5 h-max">
+    <section data-testid="finance" className="bg-white rounded-md p-5">
       <h1 className="text-2xl text-center">Estimated mortgage costs</h1>
       <Form
         method="post"

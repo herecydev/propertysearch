@@ -4,7 +4,7 @@ const EstateAgentProfile = ({ estateAgent }: { estateAgent: EstateAgent }) => {
   return (
     <section
       data-testid="estateAgentProfile"
-      className="flex flex-col items-center gap-4 mb-6"
+      className="flex flex-col items-center gap-4"
     >
       <img
         src="https://avatars.githubusercontent.com/u/11328618"

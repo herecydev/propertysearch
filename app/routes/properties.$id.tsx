@@ -47,7 +47,7 @@ const Property = () => {
   return (
     <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
       <PropertyCard property={property} />
-      <div className="flex flex-col gap-6">
+      <div className="h-max flex flex-col justify-center gap-10">
         <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />
       </div>
