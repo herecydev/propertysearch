@@ -5,7 +5,8 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
-    "dev": "binode --require ./mocks -- @remix-run/dev:remix dev",
+    "dev": "remix dev",
+    "test-server": "binode --require ./mocks -- @remix-run/dev:remix dev",
     "test": "cypress open"
   },
   "dependencies": {
