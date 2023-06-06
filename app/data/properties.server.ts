@@ -29,6 +29,10 @@ type PropertyDetailQuery = PropertyBaseQuery & {
 };
 
 const fetchContent = async <T>(body: string): Promise<T> => {
+  console.log("hello");
+  console.log(process.env.CONTENTFUL_SPACE_ID);
+  
+  
   const response = await fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
     {
