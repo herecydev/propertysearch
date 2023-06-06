@@ -39,7 +39,7 @@ const Finance = () => {
           submit(evt.currentTarget);
         }}
       >
-        <div className="mx-6 my-4">
+        <div className="mx-6 my-4 w-52">
           <Input
             name="mortgageInterest"
             maxLength={5}

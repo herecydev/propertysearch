@@ -1,4 +1,4 @@
-import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -13,22 +13,13 @@ import Icon from "./components/icons/home";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export const meta: V2_MetaFunction = () => [
-  {
-    title: "Property search",
-  },
-  {
-    charset: "utf-8",
-  },
-  {
-    viewport: "width=device-width",
-  },
-];
-
 export default function App() {
   return (
     <html lang="en">
       <head>
+        <title>Property Search</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width" />
         <Meta />
         <Links />
       </head>
