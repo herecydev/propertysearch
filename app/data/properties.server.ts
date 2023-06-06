@@ -28,7 +28,10 @@ type PropertyDetailQuery = PropertyBaseQuery & {
   };
 };
 
-const fetchContent = async <T>(body: string): Promise<T> => {
+const fetchContent = async <T>(
+  body: string,
+  variables?: { [key: string]: string }
+): Promise<T> => {
   const response = await fetch(
     `https://graphql.contentful.com/content/v1/spaces/q01urmjqhd08`,
     {
@@ -39,6 +42,7 @@ const fetchContent = async <T>(body: string): Promise<T> => {
       },
       body: JSON.stringify({
         query: body,
+        variables,
       }),
     }
   );
@@ -50,7 +54,7 @@ export const getProperties = async () => {
   const result = await fetchContent<{
     propertyCollection: { items: PropertySummaryQuery[] };
   }>(`
-  {
+  query properties {
     propertyCollection {
       items {
         sys {
@@ -81,9 +85,10 @@ export const getProperties = async () => {
 export const getProperty = async (id: string) => {
   const result = await fetchContent<{
     property: PropertyDetailQuery;
-  }>(`
-    {
-      property(id: "${id}") {
+  }>(
+    `
+    query property ($id: String!) {
+      property(id: $id) {
         sys {
           id
         }
@@ -102,7 +107,9 @@ export const getProperty = async (id: string) => {
         }
       }
     }
-        `);
+        `,
+    { id }
+  );
 
   const { sys, image, ...rest } = result.property;
   const propertySummary: PropertyDetail = {

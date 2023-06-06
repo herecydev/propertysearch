@@ -1,7 +1,6 @@
-import { getProperties } from "~/models/properties";
+import properties from "../../mocks/properties";
 import { currencyFormat } from "~/utilities/intl";
 
-const properties = await getProperties();
 const firstProperty = properties[0];
 
 describe("Property search", () => {
@@ -12,7 +11,7 @@ describe("Property search", () => {
 
     it("Displays all properties", () => {
       for (const property of properties) {
-        cy.get(`[data-testid="property-${property.id}"]`).within(() => {
+        cy.get(`[data-testid="property-${property.sys.id}"]`).within(() => {
           cy.contains(property.title);
           cy.contains(currencyFormat.format(property.price));
           cy.contains(`${property.bedrooms} bedrooms`);
@@ -33,8 +32,8 @@ describe("Property search", () => {
       // Check that our filter does actually work
       cy.get(`[data-testid="properties"]`).children().should("have.length", 1);
 
-      cy.get(`[data-testid="property-${firstProperty.id}"]`).click();
-      cy.url().should("include", `/properties/${firstProperty.id}`);
+      cy.get(`[data-testid="property-${firstProperty.sys.id}"]`).click();
+      cy.url().should("include", `/properties/${firstProperty.sys.id}`);
     });
 
     it("Displays back link if there are no properties", () => {
@@ -55,7 +54,7 @@ describe("Property search", () => {
 
   describe("Property page", () => {
     beforeEach(() => {
-      cy.visit(`/properties/${firstProperty.id}`);
+      cy.visit(`/properties/${firstProperty.sys.id}`);
     });
 
     it("Allows a user to view property details", () => {
@@ -63,10 +62,7 @@ describe("Property search", () => {
       cy.contains(currencyFormat.format(firstProperty.price));
       cy.contains(`${firstProperty.bedrooms} bedrooms`);
       cy.contains(`${firstProperty.bathrooms} bathrooms`);
-
-      for (const description of firstProperty.description) {
-        cy.contains(description);
-      }
+      cy.contains(firstProperty.description);
 
       cy.get("[data-testid='estateAgentProfile']").within(() => {
         const estateAgent = firstProperty.estateAgent;

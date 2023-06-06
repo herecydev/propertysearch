@@ -12,21 +12,19 @@ export const loader = async ({ params }: LoaderArgs) => {
 
   const property = await getProperty(params.id);
 
-  if (!property) throw new Response("", { status: 404 });
-
   return json({
     property,
   });
 };
 
 export const action = async ({ request, params }: ActionArgs) => {
-  const formData = await request.formData();
-  const interest = formData.get("mortgageInterest");
-  const term = formData.get("mortgageTerm");
-
-  if (!interest || !term || !params.id) {
-    throw new Error();
+  if (!params.id) {
+    return redirect("/");
   }
+
+  const formData = await request.formData();
+  const interest = formData.get("mortgageInterest") ?? 0;
+  const term = formData.get("mortgageTerm") ?? 0;
 
   const property = await getProperty(params.id);
 
