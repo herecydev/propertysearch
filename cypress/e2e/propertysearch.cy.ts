@@ -1,6 +1,7 @@
-import { properties } from "~/models/properties.server";
+import { getProperties } from "~/models/properties";
 import { currencyFormat } from "~/utilities/intl";
 
+const properties = await getProperties();
 const firstProperty = properties[0];
 
 describe("Property search", () => {
@@ -12,11 +13,11 @@ describe("Property search", () => {
     it("Displays all properties", () => {
       for (const property of properties) {
         cy.get(`[data-testid="property-${property.id}"]`).within(() => {
-          cy.contains(property.name);
+          cy.contains(property.title);
           cy.contains(currencyFormat.format(property.price));
           cy.contains(`${property.bedrooms} bedrooms`);
           cy.contains(`${property.bathrooms} bathrooms`);
-          cy.contains(property.shortDescription);
+          cy.contains(property.summary);
         });
       }
     });
@@ -25,7 +26,7 @@ describe("Property search", () => {
       cy.get("[data-testid='search']").within(() => {
         cy.contains("Find the perfect property today to buy or rent");
 
-        cy.get("input").type(firstProperty.name);
+        cy.get("input").type(firstProperty.title);
         cy.get("button").click();
       });
 
@@ -58,7 +59,7 @@ describe("Property search", () => {
     });
 
     it("Allows a user to view property details", () => {
-      cy.contains(firstProperty.name);
+      cy.contains(firstProperty.title);
       cy.contains(currencyFormat.format(firstProperty.price));
       cy.contains(`${firstProperty.bedrooms} bedrooms`);
       cy.contains(`${firstProperty.bathrooms} bathrooms`);
