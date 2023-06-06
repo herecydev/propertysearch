@@ -39,7 +39,7 @@ const Index = () => {
               to={`/properties/${property.id}`}
               prefetch="intent"
             >
-              <PropertyCard property={property} summary={true} />
+              <PropertyCard property={property} />
             </Link>
           ))}
         </section>
