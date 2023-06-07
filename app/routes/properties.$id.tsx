@@ -23,15 +23,17 @@ export const action = async ({ request, params }: ActionArgs) => {
   }
 
   const formData = await request.formData();
+  const deposit = formData.get("mortgageDeposit") ?? 0;
   const interest = formData.get("mortgageInterest") ?? 0;
   const term = formData.get("mortgageTerm") ?? 0;
 
   const property = await getProperty(params.id);
 
   // This is totally not how you calculate compound interest 😂
-  const annualInterest = property.price * (+interest / 100);
+  const loan = property.price - +deposit;
+  const annualInterest = loan * (+interest / 100);
   const totalInterest = annualInterest * +term;
-  const total = property.price + totalInterest;
+  const total = loan + totalInterest;
   const monthlyCost = total / +term / 12;
 
   return json({

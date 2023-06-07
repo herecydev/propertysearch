@@ -1,30 +1,40 @@
-import { Form, useActionData, useSubmit } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useSubmit,
+} from "@remix-run/react";
 import { ComponentPropsWithoutRef } from "react";
-import type { action } from "~/routes/properties.$id";
+import type { action, loader } from "~/routes/properties.$id";
 import { currencyFormat } from "~/utilities/intl";
 import Button from "./button";
 
 const Input = ({
   label,
+  unit,
   ...rest
 }: {
   label: string;
+  unit: string;
 } & ComponentPropsWithoutRef<"input">) => {
   return (
     <div className="my-5">
       <label className="font-light">
-        {label}
-        <input
-          {...rest}
-          required
-          className="mt-1 w-full border-2 border-emerald-200 py-1 text-center text-2xl focus:outline-none rounded-sm"
-        />
+        <div className="flex justify-between">{label}<span>{unit}</span></div>
+        <div className="flex justify-between items-center gap-2">
+          <input
+            {...rest}
+            required
+            className="mt-1 w-full border-2 border-emerald-200 py-1 text-center text-2xl focus:outline-none rounded-sm"
+          />
+        </div>
       </label>
     </div>
   );
 };
 
 const Finance = () => {
+  const { property } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const submit = useSubmit();
 
@@ -43,16 +53,25 @@ const Finance = () => {
       >
         <div className="mx-6 my-4 w-52">
           <Input
+            name="mortgageDeposit"
+            maxLength={5}
+            defaultValue={property.price / 5}
+            label="Deposit"
+            unit="$"
+          />
+          <Input
             name="mortgageInterest"
             maxLength={5}
             defaultValue={actionData?.mortgageInterest || 4.5}
             label="Interest Rate"
+            unit="%"
           />
           <Input
             name="mortgageTerm"
             maxLength={2}
             label="Mortgage term"
             defaultValue={actionData?.mortgageTerm || 30}
+            unit="yr"
           />
         </div>
         {actionData && (

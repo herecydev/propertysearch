@@ -82,16 +82,20 @@ describe("Property search", () => {
         cy.contains("Mortgage Calculator");
 
         // Check default values
+        cy.get("[name='mortgageDeposit']").should(
+          "have.value",
+          firstProperty.price / 5
+        );
         cy.get("[name='mortgageInterest']").should("have.value", 4.5);
         cy.get("[name='mortgageTerm']").should("have.value", 30);
 
         cy.get("button").click();
-        cy.contains("$2,611 /month");
+        cy.contains("$2,089 /month");
 
         // Check that the interest rate/term does influence the value
         cy.get("[name='mortgageTerm']").clear().type("10");
         cy.get("button").click();
-        cy.contains("$4,833 /month");
+        cy.contains("$3,867 /month");
       });
     });
   });
