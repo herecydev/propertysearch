@@ -20,7 +20,7 @@ const PropertyCard = ({
   return (
     <article
       data-testid={`property-${property.id}`}
-      className={`bg-white rounded-md flex flex-col max-w-xl h-full transition-all duration-200 ease-in ${
+      className={`bg-white rounded-md flex flex-col max-w-lg h-full transition-all duration-200 ease-in ${
         hasSummary && "group hover:bg-emerald-300"
       }`}
     >
@@ -34,7 +34,7 @@ const PropertyCard = ({
       </picture>
       <div className="p-6">
         <header className="flex justify-between gap-4 text-lg">
-          <h1 className="font-normal uppercase">{property.title}</h1>
+          <h1 className="uppercase">{property.title}</h1>
           <span className="font-semibold text-teal-700">
             {currencyFormat.format(property.price)}
           </span>
@@ -52,11 +52,9 @@ const PropertyCard = ({
         {hasSummary ? (
           <p className="font-light">{property.summary}</p>
         ) : (
-          <div className="my-4 space-y-4">
+          <div className="my-4 space-y-4 font-light">
             {property.description.split("\n").map((paragraph, index) => (
-              <p className="font-light" key={index}>
-                {paragraph}
-              </p>
+              <p key={index}>{paragraph}</p>
             ))}
           </div>
         )}

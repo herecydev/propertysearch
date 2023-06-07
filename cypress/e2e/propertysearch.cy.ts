@@ -79,7 +79,7 @@ describe("Property search", () => {
 
     it("Allows a user to get an estimate mortgage cost", () => {
       cy.get("[data-testid='finance']").within(() => {
-        cy.contains("Estimated mortgage costs");
+        cy.contains("Mortgage Calculator");
 
         // Check default values
         cy.get("[name='mortgageInterest']").should("have.value", 4.5);

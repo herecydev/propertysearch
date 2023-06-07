@@ -11,13 +11,15 @@ const Input = ({
   label: string;
 } & ComponentPropsWithoutRef<"input">) => {
   return (
-    <div className="my-5 flex flex-col gap-1">
-      <label>{label}</label>
-      <input
-        {...rest}
-        required
-        className="border-2 border-emerald-200 py-1 text-center text-2xl focus:outline-none rounded-sm"
-      />
+    <div className="my-5">
+      <label className="font-light">
+        {label}
+        <input
+          {...rest}
+          required
+          className="mt-1 w-full border-2 border-emerald-200 py-1 text-center text-2xl focus:outline-none rounded-sm"
+        />
+      </label>
     </div>
   );
 };
@@ -28,7 +30,7 @@ const Finance = () => {
 
   return (
     <section data-testid="finance" className="bg-white rounded-md p-5">
-      <h1 className="text-2xl text-center">Estimated mortgage costs</h1>
+      <h1 className="text-2xl text-center">Mortgage Calculator</h1>
       <Form
         method="post"
         className="flex flex-col items-center"

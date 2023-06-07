@@ -3,7 +3,7 @@ import { Link } from "@remix-run/react";
 const Icon = () => (
   <Link to="/">
     <svg
-      className="max-h-16"
+      className="max-h-12"
       viewBox="0 0 322 80"
       xmlns="http://www.w3.org/2000/svg"
     >
