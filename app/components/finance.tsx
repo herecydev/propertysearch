@@ -20,7 +20,10 @@ const Input = ({
   return (
     <div className="my-5">
       <label className="font-light">
-        <div className="flex justify-between">{label}<span>{unit}</span></div>
+        <div className="flex justify-between">
+          {label}
+          <span>{unit}</span>
+        </div>
         <div className="flex justify-between items-center gap-2">
           <input
             {...rest}
@@ -46,7 +49,7 @@ const Finance = () => {
         className="flex flex-col items-center"
         onChange={(evt) => {
           // I love this progressive enhancement 🤩
-          // it works without javascript but if we do have it
+          // it works without javascript but when it does load
           // we're making the value submit as the user types on the client
           submit(evt.currentTarget);
         }}
@@ -74,7 +77,7 @@ const Finance = () => {
             unit="yr"
           />
         </div>
-        {actionData && (
+        {actionData?.monthlyCost && (
           <span className="mb-6 font-light text-3xl">
             {currencyFormat.format(actionData.monthlyCost)}{" "}
             <span className="text-xl">/month</span>

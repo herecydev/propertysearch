@@ -4,16 +4,19 @@ import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
 import { getProperty } from "~/data/properties.server";
+import { getSession } from "~/sessions";
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
     return redirect("/");
   }
 
   const property = await getProperty(params.id);
+  const session = await getSession(request.headers.get("Cookie"));
 
   return json({
     property,
+    favouriteProperties: session.get("favouriteProperties") ?? [],
   });
 };
 
@@ -44,11 +47,16 @@ export const action = async ({ request, params }: ActionArgs) => {
 };
 
 const Property = () => {
-  const { property } = useLoaderData<typeof loader>();
+  const { property, favouriteProperties } = useLoaderData<typeof loader>();
 
   return (
     <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
-      <PropertyCard property={property} />
+      <PropertyCard
+        property={property}
+        isFavourited={favouriteProperties.some(
+          (favourite) => favourite === property.id
+        )}
+      />
       <div className="h-max flex flex-col justify-center gap-10">
         <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />
