@@ -1,10 +1,12 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { kv } from "@vercel/kv";
+import { createKvSessionStorage } from "@vercel/remix";
 
 type SessionData = {
   favouriteProperties: string[];
 };
 
-const { getSession, commitSession } = createCookieSessionStorage<SessionData>({
+const { getSession, commitSession } = createKvSessionStorage<SessionData>({
+  kv,
   cookie: {
     name: "__session",
     httpOnly: true,

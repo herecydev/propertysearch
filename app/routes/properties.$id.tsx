@@ -1,10 +1,12 @@
-import { ActionArgs, json, LoaderArgs, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { ActionArgs, json, LoaderArgs, redirect } from "@vercel/remix";
 import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
+import { toggleFavourite } from "~/data/favourites.server";
+import { calculateInterest } from "~/data/finance.server";
 import { getProperty } from "~/data/properties.server";
-import { commitSession, getSession } from "~/sessions";
+import { getSession } from "~/sessions";
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
@@ -29,42 +31,31 @@ export const action = async ({ request, params }: ActionArgs) => {
   const action = formData.get("_action");
 
   if (action === "favourite") {
-    const session = await getSession(request.headers.get("Cookie"));
-    const favouriteProperties = new Set(
-      session.get("favouriteProperties") ?? []
-    );
-
-    favouriteProperties.has(params.id)
-      ? favouriteProperties.delete(params.id)
-      : favouriteProperties.add(params.id);
-
-    session.set("favouriteProperties", [...favouriteProperties]);
-
-    return json(undefined, {
+    return json(null, {
       headers: {
-        "Set-Cookie": await commitSession(session),
+        "Set-Cookie": await toggleFavourite(request, `${formData.get("id")}`),
       },
     });
   }
 
-  const deposit = formData.get("mortgageDeposit") ?? 0;
-  const interest = formData.get("mortgageInterest") ?? 0;
-  const term = formData.get("mortgageTerm") ?? 0;
+  if (action === "calculate") {
+    const deposit = formData.get("mortgageDeposit") ?? 0;
+    const interest = formData.get("mortgageInterest") ?? 0;
+    const term = formData.get("mortgageTerm") ?? 0;
 
-  const property = await getProperty(params.id);
+    return json({
+      mortgageInterest: interest,
+      mortgageTerm: term,
+      monthlyCost: await calculateInterest(
+        params.id,
+        +deposit,
+        +interest,
+        +term
+      ),
+    });
+  }
 
-  // This is totally not how you calculate compound interest 😂
-  const loan = property.price - +deposit;
-  const annualInterest = loan * (+interest / 100);
-  const totalInterest = annualInterest * +term;
-  const total = loan + totalInterest;
-  const monthlyCost = total / +term / 12;
-
-  return json({
-    mortgageInterest: interest,
-    mortgageTerm: term,
-    monthlyCost,
-  });
+  throw new Error("Invalid action type");
 };
 
 const Property = () => {

@@ -1,4 +1,4 @@
-import { Link, useFetcher } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 import { PropertyDetail, PropertySummary } from "~/models/properties";
 import { currencyFormat } from "~/utilities/intl";
 import Bath from "./icons/bath";
@@ -20,7 +20,6 @@ const PropertyCard = ({
   property: PropertyDetail | PropertySummary;
   isFavourited: boolean;
 }) => {
-  const fetcher = useFetcher();
   const hasSummary = "summary" in property;
 
   return (
@@ -47,12 +46,9 @@ const PropertyCard = ({
               {currencyFormat.format(property.price)}
             </span>
           </header>
-          <fetcher.Form
-            method="post"
-            action={`/properties/${property.id}`}
-            className="z-10 p-4"
-          >
+          <Form method="post" className="z-10 p-4">
             <input type="hidden" name="_action" value="favourite" />
+            <input type="hidden" name="id" value={property.id} />
             <button>
               {isFavourited ? (
                 <HeartFilled title="Favourite" />
@@ -60,7 +56,7 @@ const PropertyCard = ({
                 <Heart title="Favourite" />
               )}
             </button>
-          </fetcher.Form>
+          </Form>
         </div>
         <div className="flex gap-4 my-4">
           <Icon

@@ -5,7 +5,7 @@ import {
   useSubmit,
 } from "@remix-run/react";
 import { ComponentPropsWithoutRef } from "react";
-import type { action, loader } from "~/routes/properties.$id";
+import { loader } from "~/routes/properties.$id";
 import { currencyFormat } from "~/utilities/intl";
 import Button from "./button";
 
@@ -38,7 +38,7 @@ const Input = ({
 
 const Finance = () => {
   const { property } = useLoaderData<typeof loader>();
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData();
   const submit = useSubmit();
 
   return (
@@ -54,6 +54,7 @@ const Finance = () => {
           submit(evt.currentTarget);
         }}
       >
+        <input type="hidden" name="_action" value="calculate" />
         <div className="mx-6 my-4 w-52">
           <Input
             name="mortgageDeposit"

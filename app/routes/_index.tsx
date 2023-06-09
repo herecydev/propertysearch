@@ -1,10 +1,11 @@
-import { json, LoaderArgs } from "@remix-run/node";
+import { ActionArgs, json, LoaderArgs } from "@vercel/remix";
 import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
 import { useState } from "react";
 import PropertyCard from "~/components/propertyCard";
 import Search from "~/components/search";
 import { getProperties } from "~/data/properties.server";
 import { getSession } from "~/sessions";
+import { toggleFavourite } from "~/data/favourites.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const search = new URL(request.url).searchParams.get("search");
@@ -18,6 +19,16 @@ export const loader = async ({ request }: LoaderArgs) => {
         )
       : properties,
     favouriteProperties: session.get("favouriteProperties") ?? [],
+  });
+};
+
+export const action = async ({ request }: ActionArgs) => {
+  const formData = await request.formData();
+
+  return json(null, {
+    headers: {
+      "Set-Cookie": await toggleFavourite(request, `${formData.get("id")}`),
+    },
   });
 };
 
