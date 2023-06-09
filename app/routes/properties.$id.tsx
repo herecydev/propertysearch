@@ -4,7 +4,7 @@ import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
 import { getProperty } from "~/data/properties.server";
-import { getSession } from "~/sessions";
+import { commitSession, getSession } from "~/sessions";
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
@@ -26,6 +26,27 @@ export const action = async ({ request, params }: ActionArgs) => {
   }
 
   const formData = await request.formData();
+  const action = formData.get("_action");
+
+  if (action === "favourite") {
+    const session = await getSession(request.headers.get("Cookie"));
+    const favouriteProperties = new Set(
+      session.get("favouriteProperties") ?? []
+    );
+
+    favouriteProperties.has(params.id)
+      ? favouriteProperties.delete(params.id)
+      : favouriteProperties.add(params.id);
+
+    session.set("favouriteProperties", [...favouriteProperties]);
+
+    return json(undefined, {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
   const deposit = formData.get("mortgageDeposit") ?? 0;
   const interest = formData.get("mortgageInterest") ?? 0;
   const term = formData.get("mortgageTerm") ?? 0;

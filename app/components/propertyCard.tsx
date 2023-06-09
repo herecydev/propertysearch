@@ -49,9 +49,10 @@ const PropertyCard = ({
           </header>
           <fetcher.Form
             method="post"
-            action={`/api/favourites/${property.id}`}
+            action={`/properties/${property.id}`}
             className="z-10 p-4"
           >
+            <input type="hidden" name="_action" value="favourite" />
             <button>
               {isFavourited ? (
                 <HeartFilled title="Favourite" />
@@ -81,11 +82,13 @@ const PropertyCard = ({
           </div>
         )}
       </div>
-      <Link
-        className="after:absolute after:inset-0"
-        to={`/properties/${property.id}`}
-        prefetch="intent"
-      />
+      {hasSummary && (
+        <Link
+          className="after:absolute after:inset-0"
+          to={`/properties/${property.id}`}
+          prefetch="intent"
+        />
+      )}
     </article>
   );
 };
