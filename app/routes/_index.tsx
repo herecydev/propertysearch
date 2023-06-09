@@ -1,11 +1,11 @@
-import { ActionArgs, json, LoaderArgs } from "@vercel/remix";
 import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
+import { ActionArgs, json, LoaderArgs } from "@vercel/remix";
 import { useState } from "react";
-import PropertyCard from "~/components/propertyCard";
+import PropertyGrid from "~/components/propertyGrid";
 import Search from "~/components/search";
+import { toggleFavourite } from "~/data/favourites.server";
 import { getProperties } from "~/data/properties.server";
 import { getSession } from "~/sessions";
-import { toggleFavourite } from "~/data/favourites.server";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const search = new URL(request.url).searchParams.get("search");
@@ -33,11 +33,9 @@ export const action = async ({ request }: ActionArgs) => {
 };
 
 const Index = () => {
-  const { properties, favouriteProperties } = useLoaderData<typeof loader>();
+  const { properties } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [favouritesOnly, setFavouritesOnly] = useState(false);
-  const favouritePropertiesSet = new Set(favouriteProperties);
+  const [search, setSearch] = useState(searchParams.get("search") ?? "");
 
   return (
     <main>
@@ -45,30 +43,7 @@ const Index = () => {
         <Search search={search} setSearch={setSearch} />
       </div>
       {properties.length ? (
-        <section data-testid="properties" className="xl:container mx-auto">
-          <label className="text-lg">
-            <input
-              type="checkbox"
-              className="mr-1 mb-4 w-4 h-4 accent-emerald-300"
-              checked={favouritesOnly}
-              onChange={() => setFavouritesOnly(!favouritesOnly)}
-            />
-            Just my favourites
-          </label>
-          <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {properties
-              .filter((property) =>
-                favouritesOnly ? favouritePropertiesSet.has(property.id) : true
-              )
-              .map((property) => (
-                <PropertyCard
-                  key={property.id}
-                  property={property}
-                  isFavourited={favouritePropertiesSet.has(property.id)}
-                />
-              ))}
-          </div>
-        </section>
+        <PropertyGrid />
       ) : (
         <div className="text-center">
           Sorry, we can't find any properties!

@@ -25,13 +25,13 @@ const PropertyCard = ({
   return (
     <article
       data-testid={`property-${property.id}`}
-      className={`relative bg-white rounded-md flex flex-col max-w-lg h-full transition-all duration-200 ease-in ${
+      className={`relative bg-white rounded-md flex flex-col max-w-lg h-full ${
         hasSummary && "group"
       }`}
     >
       <picture className="rounded-t-md overflow-hidden">
         <img
-          className="group-hover:scale-110 transition-all duration-200 ease-in"
+          className="group-hover:scale-110 transition-all"
           src={property.image}
           width={1200}
           height={1200}
@@ -46,12 +46,12 @@ const PropertyCard = ({
               {currencyFormat.format(property.price)}
             </span>
           </header>
-          <Form method="post" className="z-10 p-4">
+          <Form method="post" className="z-10">
             <input type="hidden" name="_action" value="favourite" />
             <input type="hidden" name="id" value={property.id} />
-            <button>
+            <button className="hover:scale-150 scale-125 p-2">
               {isFavourited ? (
-                <HeartFilled title="Favourite" />
+                <HeartFilled title="Unfavourite" />
               ) : (
                 <Heart title="Favourite" />
               )}
