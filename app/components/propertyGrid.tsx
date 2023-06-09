@@ -1,16 +1,12 @@
-import { useLoaderData, useNavigation } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import type { loader } from "~/routes/_index";
 import PropertyCard from "./propertyCard";
 
 const PropertyGrid = () => {
   const { properties, favouriteProperties } = useLoaderData<typeof loader>();
-  const navigation = useNavigation();
   const [favouritesOnly, setFavouritesOnly] = useState(false);
   const favouritePropertiesSet = new Set(favouriteProperties);
-  const favouriteSubmitting =
-    (navigation.state === "submitting" || navigation.state === "loading") &&
-    navigation.formData?.get("_action") === "favourite";
 
   return (
     <section data-testid="properties" className="xl:container mx-auto">
@@ -32,12 +28,7 @@ const PropertyGrid = () => {
             <PropertyCard
               key={property.id}
               property={property}
-              isFavourited={
-                favouriteSubmitting &&
-                navigation.formData?.get("id") === property.id
-                  ? !favouritePropertiesSet.has(property.id)
-                  : favouritePropertiesSet.has(property.id)
-              }
+              isFavourited={favouritePropertiesSet.has(property.id)}
             />
           ))}
       </div>

@@ -1,4 +1,4 @@
-import { Form, Link } from "@remix-run/react";
+import { Form, Link, useFetcher } from "@remix-run/react";
 import { PropertyDetail, PropertySummary } from "~/models/properties";
 import { currencyFormat } from "~/utilities/intl";
 import Bath from "./icons/bath";
@@ -20,7 +20,13 @@ const PropertyCard = ({
   property: PropertyDetail | PropertySummary;
   isFavourited: boolean;
 }) => {
+  const fetcher = useFetcher();
   const hasSummary = "summary" in property;
+
+  // We can use optimistic UI patterns to make this transition feel instant even if we're waiting for the server
+  const togglingFavourite =
+    fetcher.state === "submitting" || fetcher.state === "loading";
+  const showFilledHeart = togglingFavourite ? !isFavourited : isFavourited;
 
   return (
     <article
@@ -46,17 +52,17 @@ const PropertyCard = ({
               {currencyFormat.format(property.price)}
             </span>
           </header>
-          <Form method="post" className="z-10">
+          <fetcher.Form method="post" className="z-10">
             <input type="hidden" name="_action" value="favourite" />
             <input type="hidden" name="id" value={property.id} />
             <button className="hover:scale-150 scale-125 p-2">
-              {isFavourited ? (
+              {showFilledHeart ? (
                 <HeartFilled title="Unfavourite" />
               ) : (
                 <Heart title="Favourite" />
               )}
             </button>
-          </Form>
+          </fetcher.Form>
         </div>
         <div className="flex gap-4 my-4">
           <Icon

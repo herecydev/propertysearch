@@ -45,22 +45,15 @@ export const action = async ({ request, params }: ActionArgs) => {
 
 const Property = () => {
   const { property, favouriteProperties } = useLoaderData<typeof loader>();
-  const navigation = useNavigation();
   const isFavourited = favouriteProperties.some(
     (favourite) => favourite === property.id
   );
-  console.log(navigation.state);
-
-  // We can use optimistic UI patterns to make this transition feel instant even if we're waiting for the server
-  const isSubmittingFavourite =
-    navigation.formData?.get("_action") == "favourite" &&
-    (navigation.state == "submitting" || navigation.state == "loading");
 
   return (
     <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
       <PropertyCard
         property={property}
-        isFavourited={isSubmittingFavourite ? !isFavourited : isFavourited}
+        isFavourited={isFavourited}
       />
       <div className="h-max flex flex-col justify-center gap-10">
         <EstateAgentProfile estateAgent={property.estateAgent} />
