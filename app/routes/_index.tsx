@@ -1,7 +1,7 @@
-import { json, LoaderArgs } from "@remix-run/node";
 import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
+import { LoaderArgs, json } from "@vercel/remix";
 import { useState } from "react";
-import PropertyCard from "~/components/propertyCard";
+import PropertyGrid from "~/components/propertyGrid";
 import Search from "~/components/search";
 import { getProperties } from "~/data/properties.server";
 
@@ -21,7 +21,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 const Index = () => {
   const { properties } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [search, setSearch] = useState(searchParams.get("search") ?? "");
 
   return (
     <main>
@@ -29,20 +29,7 @@ const Index = () => {
         <Search search={search} setSearch={setSearch} />
       </div>
       {properties.length ? (
-        <section
-          data-testid="properties"
-          className="xl:container mx-auto grid justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {properties.map((property) => (
-            <Link
-              key={property.id}
-              to={`/properties/${property.id}`}
-              prefetch="intent"
-            >
-              <PropertyCard property={property} />
-            </Link>
-          ))}
-        </section>
+        <PropertyGrid />
       ) : (
         <div className="text-center">
           Sorry, we can't find any properties!

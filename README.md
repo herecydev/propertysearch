@@ -8,6 +8,7 @@ This isn't obviously exhaustive but covers:
 - Typescript
 - An approach to styling using tailwind
 - Automated testing
+- Deployment onto Vercel
 
 Stying isn't meant to be perfect, I'm no designer 🙈
 

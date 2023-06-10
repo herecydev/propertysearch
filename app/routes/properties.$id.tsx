@@ -1,45 +1,29 @@
-import { ActionArgs, json, LoaderArgs, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { LoaderArgs, json, redirect } from "@vercel/remix";
 import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
+import { calculateInterest } from "~/data/finance.server";
 import { getProperty } from "~/data/properties.server";
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
     return redirect("/");
   }
 
   const property = await getProperty(params.id);
+  const searchParams = new URL(request.url).searchParams;
+
+  const deposit = searchParams.get("deposit");
+  const interest = searchParams.get("interest");
+  const term = searchParams.get("term");
 
   return json({
     property,
-  });
-};
-
-export const action = async ({ request, params }: ActionArgs) => {
-  if (!params.id) {
-    return redirect("/");
-  }
-
-  const formData = await request.formData();
-  const deposit = formData.get("mortgageDeposit") ?? 0;
-  const interest = formData.get("mortgageInterest") ?? 0;
-  const term = formData.get("mortgageTerm") ?? 0;
-
-  const property = await getProperty(params.id);
-
-  // This is totally not how you calculate compound interest 😂
-  const loan = property.price - +deposit;
-  const annualInterest = loan * (+interest / 100);
-  const totalInterest = annualInterest * +term;
-  const total = loan + totalInterest;
-  const monthlyCost = total / +term / 12;
-
-  return json({
-    mortgageInterest: interest,
-    mortgageTerm: term,
-    monthlyCost,
+    totalInterest:
+      deposit && interest && term
+        ? await calculateInterest(property.id, +deposit, +interest, +term)
+        : null,
   });
 };
 

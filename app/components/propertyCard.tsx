@@ -1,5 +1,8 @@
+import { Link } from "@remix-run/react";
+import { ClientOnly } from "remix-utils";
 import { PropertyDetail, PropertySummary } from "~/models/properties";
 import { currencyFormat } from "~/utilities/intl";
+import Favourite from "./favourite";
 import Bath from "./icons/bath";
 import Bed from "./icons/bed";
 
@@ -20,26 +23,32 @@ const PropertyCard = ({
   return (
     <article
       data-testid={`property-${property.id}`}
-      className={`bg-white rounded-md flex flex-col max-w-lg h-full transition-all duration-200 ease-in ${
-        hasSummary && "group hover:bg-emerald-300"
+      className={`relative bg-white rounded-md flex flex-col max-w-lg h-full ${
+        hasSummary && "group"
       }`}
     >
       <picture className="rounded-t-md overflow-hidden">
         <img
-          className="group-hover:scale-110 transition-all duration-200 ease-in"
+          className="group-hover:scale-110 transition-all"
           src={property.image}
           width={1200}
           height={1200}
+          alt={property.title}
         />
       </picture>
       <div className="p-6">
-        <header className="flex justify-between gap-4 text-lg">
-          <h1 className="uppercase">{property.title}</h1>
-          <span className="font-semibold text-teal-700">
-            {currencyFormat.format(property.price)}
-          </span>
-        </header>
-        <div className="flex gap-4 my-2">
+        <div className="flex justify-between items-center gap-8 text-lg">
+          <header>
+            <h1 className="uppercase">{property.title}</h1>
+            <span className="font-semibold text-teal-700">
+              {currencyFormat.format(property.price)}
+            </span>
+          </header>
+          <ClientOnly>
+            {() => <Favourite propertyId={property.id} />}
+          </ClientOnly>
+        </div>
+        <div className="flex gap-4 my-4">
           <Icon
             icon={<Bed title={`${property.bedrooms} bedrooms`} />}
             count={property.bedrooms}
@@ -59,6 +68,13 @@ const PropertyCard = ({
           </div>
         )}
       </div>
+      {hasSummary && (
+        <Link
+          className="after:absolute after:inset-0"
+          to={`/properties/${property.id}`}
+          prefetch="intent"
+        />
+      )}
     </article>
   );
 };

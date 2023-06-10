@@ -1,11 +1,11 @@
 import {
   Form,
-  useActionData,
   useLoaderData,
-  useSubmit,
+  useSearchParams,
+  useSubmit
 } from "@remix-run/react";
 import { ComponentPropsWithoutRef } from "react";
-import type { action, loader } from "~/routes/properties.$id";
+import { loader } from "~/routes/properties.$id";
 import { currencyFormat } from "~/utilities/intl";
 import Button from "./button";
 
@@ -20,7 +20,10 @@ const Input = ({
   return (
     <div className="my-5">
       <label className="font-light">
-        <div className="flex justify-between">{label}<span>{unit}</span></div>
+        <div className="flex justify-between">
+          {label}
+          <span>{unit}</span>
+        </div>
         <div className="flex justify-between items-center gap-2">
           <input
             {...rest}
@@ -34,49 +37,50 @@ const Input = ({
 };
 
 const Finance = () => {
-  const { property } = useLoaderData<typeof loader>();
-  const actionData = useActionData<typeof action>();
+  const { property, totalInterest } = useLoaderData<typeof loader>();
+  const [searchParams] = useSearchParams();
   const submit = useSubmit();
 
   return (
     <section data-testid="finance" className="bg-white rounded-md p-5">
       <h1 className="text-2xl text-center">Mortgage Calculator</h1>
       <Form
-        method="post"
         className="flex flex-col items-center"
+        preventScrollReset
         onChange={(evt) => {
           // I love this progressive enhancement 🤩
-          // it works without javascript but if we do have it
+          // it works without javascript but when it does load
           // we're making the value submit as the user types on the client
-          submit(evt.currentTarget);
+          submit(evt.currentTarget, { preventScrollReset: true });
         }}
       >
+        <input type="hidden" name="_action" value="calculate" />
         <div className="mx-6 my-4 w-52">
           <Input
-            name="mortgageDeposit"
+            name="deposit"
             maxLength={5}
-            defaultValue={property.price / 5}
+            defaultValue={searchParams.get("deposit") ?? property.price / 5}
             label="Deposit"
             unit="$"
           />
           <Input
-            name="mortgageInterest"
+            name="interest"
             maxLength={5}
-            defaultValue={actionData?.mortgageInterest || 4.5}
+            defaultValue={searchParams.get("interest") ?? 4.5}
             label="Interest Rate"
             unit="%"
           />
           <Input
-            name="mortgageTerm"
+            name="term"
             maxLength={2}
             label="Mortgage term"
-            defaultValue={actionData?.mortgageTerm || 30}
+            defaultValue={searchParams.get("term") ?? 30}
             unit="yr"
           />
         </div>
-        {actionData && (
+        {totalInterest && (
           <span className="mb-6 font-light text-3xl">
-            {currencyFormat.format(actionData.monthlyCost)}{" "}
+            {currencyFormat.format(totalInterest)}{" "}
             <span className="text-xl">/month</span>
           </span>
         )}
