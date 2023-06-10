@@ -31,12 +31,12 @@ const Property = () => {
   const { property } = useLoaderData<typeof loader>();
 
   return (
-    <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
+    <main className="w-full mt-10 mx-auto grid justify-center gap-8 grid-cols-[minmax(auto,35rem)] lg:grid-cols-[35rem_20rem]">
       <PropertyCard property={property} />
-      <div className="h-max flex flex-col justify-center gap-10">
+      <aside className="h-max flex flex-col justify-center gap-10">
         <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />
-      </div>
+      </aside>
     </main>
   );
 };
