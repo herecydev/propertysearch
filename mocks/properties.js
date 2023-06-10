@@ -11,7 +11,7 @@ const modern = {
   description: "Lorem ipsum",
   price: 400000,
   image: {
-    url: "https://some.url",
+    url: "https://images.ctfassets.net/q01urmjqhd08/5Tb6U5bfyIGngacnE6pGw9/85099fe3be619519eb8d275d0144f158/Palm.jpg",
   },
   bedrooms: 3,
   bathrooms: 2,
@@ -25,7 +25,7 @@ const dream = {
   description: "Lorem ipsum",
   price: 600000,
   image: {
-    url: "https://some.url",
+    url: "https://images.ctfassets.net/q01urmjqhd08/5Tb6U5bfyIGngacnE6pGw9/85099fe3be619519eb8d275d0144f158/Palm.jpg",
   },
   bedrooms: 6,
   bathrooms: 4,

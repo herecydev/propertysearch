@@ -9,7 +9,7 @@ const PropertyGrid = () => {
   const favouritePropertiesSet = new Set(favouriteProperties);
 
   return (
-    <section data-testid="properties" className="xl:container mx-auto">
+    <section className="xl:container mx-auto">
       <label className="text-lg font-light">
         <input
           type="checkbox"
@@ -19,7 +19,10 @@ const PropertyGrid = () => {
         />
         Just my favourites
       </label>
-      <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        data-testid="properties"
+        className="grid justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         {properties
           .filter((property) =>
             favouritesOnly ? favouritePropertiesSet.has(property.id) : true

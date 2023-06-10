@@ -1,5 +1,5 @@
-import { useLoaderData, useNavigation } from "@remix-run/react";
-import { ActionArgs, json, LoaderArgs, redirect } from "@vercel/remix";
+import { useLoaderData } from "@remix-run/react";
+import { ActionArgs, LoaderArgs, json, redirect } from "@vercel/remix";
 import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
