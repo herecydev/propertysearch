@@ -18,4 +18,4 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           start: yarn test:server
-          wait-on: "http://localhost:8080"
+          wait-on: "http://localhost:3000"
