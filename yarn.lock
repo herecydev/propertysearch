@@ -3246,15 +3246,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@upstash/redis@npm:1.20.6":
-  version: 1.20.6
-  resolution: "@upstash/redis@npm:1.20.6"
-  dependencies:
-    isomorphic-fetch: ^3.0.0
-  checksum: e4bcf1d61b0fa3dec5b2b730831a0d6939416bdafe1af753479e53b035aa70be49ca96a6f3f52473d488ec896588a0134ee71b4c71f0caecb6454648f2e3bd29
-  languageName: node
-  linkType: hard
-
 "@vanilla-extract/babel-plugin-debug-ids@npm:^1.0.2":
   version: 1.0.2
   resolution: "@vanilla-extract/babel-plugin-debug-ids@npm:1.0.2"
@@ -3308,15 +3299,6 @@ __metadata:
   version: 1.0.3
   resolution: "@vanilla-extract/private@npm:1.0.3"
   checksum: 866a71ba6804edeb0735684e7723ba78f5cf0bb40d4fb538fe6bf7d73928099e341312337b2a510ac0ce96ff8a4b39eb7f7a5fad0c842532353dd20e7278f29b
-  languageName: node
-  linkType: hard
-
-"@vercel/kv@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@vercel/kv@npm:0.2.1"
-  dependencies:
-    "@upstash/redis": 1.20.6
-  checksum: 156058160caf151ee0a64204d83d1d6fa3fe9c568de2cb9c89f2e809855fda9ec26976c99a1f1fa74043f1fb00102561909608c6ea8f2ab4399b9663561d00b4
   languageName: node
   linkType: hard
 
@@ -7019,6 +7001,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"intl-parse-accept-language@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "intl-parse-accept-language@npm:1.0.0"
+  checksum: c1dcc0f520cb85be391f1cf4b5f691ab19183e5d8e8f5277c0d2210a78a6d01ee907b9bb70f7425c4a8d5a9ed86f8b18a8d53f089025772d89f5cbe39282f266
+  languageName: node
+  linkType: hard
+
+"ip-regex@npm:^4.0.0":
+  version: 4.3.0
+  resolution: "ip-regex@npm:4.3.0"
+  checksum: 7ff904b891221b1847f3fdf3dbb3e6a8660dc39bc283f79eb7ed88f5338e1a3d1104b779bc83759159be266249c59c2160e779ee39446d79d4ed0890dfd06f08
+  languageName: node
+  linkType: hard
+
 "ip@npm:^1.1.5":
   version: 1.1.8
   resolution: "ip@npm:1.1.8"
@@ -7241,6 +7237,15 @@ __metadata:
   version: 1.0.0
   resolution: "is-interactive@npm:1.0.0"
   checksum: 824808776e2d468b2916cdd6c16acacebce060d844c35ca6d82267da692e92c3a16fdba624c50b54a63f38bdc4016055b6f443ce57d7147240de4f8cdabaf6f9
+  languageName: node
+  linkType: hard
+
+"is-ip@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "is-ip@npm:3.1.0"
+  dependencies:
+    ip-regex: ^4.0.0
+  checksum: da2c2b282407194adf2320bade0bad94be9c9d0bdab85ff45b1b62d8185f31c65dff3884519d57bf270277e5ea2046c7916a6e5a6db22fe4b7ddcdd3760f23eb
   languageName: node
   linkType: hard
 
@@ -7470,16 +7475,6 @@ __metadata:
   version: 2.0.0
   resolution: "isexe@npm:2.0.0"
   checksum: 26bf6c5480dda5161c820c5b5c751ae1e766c587b1f951ea3fcfc973bafb7831ae5b54a31a69bd670220e42e99ec154475025a468eae58ea262f813fdc8d1c62
-  languageName: node
-  linkType: hard
-
-"isomorphic-fetch@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "isomorphic-fetch@npm:3.0.0"
-  dependencies:
-    node-fetch: ^2.6.1
-    whatwg-fetch: ^3.4.1
-  checksum: e5ab79a56ce5af6ddd21265f59312ad9a4bc5a72cebc98b54797b42cb30441d5c5f8d17c5cd84a99e18101c8af6f90c081ecb8d12fd79e332be1778d58486d75
   languageName: node
   linkType: hard
 
@@ -8888,7 +8883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
+"node-fetch@npm:^2.6.7":
   version: 2.6.11
   resolution: "node-fetch@npm:2.6.11"
   dependencies:
@@ -9729,7 +9724,6 @@ __metadata:
     "@remix-run/serve": ^1.17.0
     "@types/react": ^18.2.0
     "@types/react-dom": ^18.2.0
-    "@vercel/kv": ^0.2.1
     "@vercel/remix": ^1.17.0
     binode: ^1.0.5
     cypress: ^12.14.0
@@ -9738,6 +9732,7 @@ __metadata:
     msw: ^1.2.1
     react: ^18.2.0
     react-dom: ^18.2.0
+    remix-utils: ^6.4.0
     start-server-and-test: ^2.0.0
     tailwindcss: ^3.3.2
     typescript: ^5.0.0
@@ -10168,6 +10163,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remix-utils@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "remix-utils@npm:6.4.0"
+  dependencies:
+    intl-parse-accept-language: ^1.0.0
+    is-ip: ^3.1.0
+    schema-dts: ^1.1.0
+    type-fest: ^2.5.2
+    uuid: ^8.3.2
+  peerDependencies:
+    "@remix-run/react": ^1.10.0
+    "@remix-run/server-runtime": ^1.10.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    zod: ^3.19.1
+  checksum: b76ec75883f24e084a16b16881c4053e163652739a975661e13b3ec6180c4a542a5aff8ff54ca3745c6447700a7a467cb7a4b48bb1baebe4266497b0b74e94d5
+  languageName: node
+  linkType: hard
+
 "request-progress@npm:^3.0.0":
   version: 3.0.0
   resolution: "request-progress@npm:3.0.0"
@@ -10436,6 +10449,15 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  languageName: node
+  linkType: hard
+
+"schema-dts@npm:^1.1.0":
+  version: 1.1.2
+  resolution: "schema-dts@npm:1.1.2"
+  peerDependencies:
+    typescript: ">=4.1.0"
+  checksum: 29703363b26215174268bf205a12ea78f1d264c8e696316de36ed8be2ab23e691ccea251899ba9245d89a45af5978c8a1ee162b7a4d07db999fd3300d842b4b6
   languageName: node
   linkType: hard
 
@@ -11337,7 +11359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^2.19.0":
+"type-fest@npm:^2.19.0, type-fest@npm:^2.5.2":
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
   checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
@@ -11847,13 +11869,6 @@ __metadata:
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
   checksum: c92a0a6ab95314bde9c32e1d0a6dfac83b578f8fa5f21e675bc2706ed6981bc26b7eb7e6a1fab158e5ce4adf9caa4a0aee49a52505d4d13c7be545f15021b17c
-  languageName: node
-  linkType: hard
-
-"whatwg-fetch@npm:^3.4.1":
-  version: 3.6.2
-  resolution: "whatwg-fetch@npm:3.6.2"
-  checksum: ee976b7249e7791edb0d0a62cd806b29006ad7ec3a3d89145921ad8c00a3a67e4be8f3fb3ec6bc7b58498724fd568d11aeeeea1f7827e7e1e5eae6c8a275afed
   languageName: node
   linkType: hard
 

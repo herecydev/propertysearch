@@ -1,7 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
 import { LoaderArgs, json, redirect } from "@vercel/remix";
 import EstateAgentProfile from "~/components/estateAgentProfile";
-import { useFavourites } from "~/components/favouritesContextProvider";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
 import { calculateInterest } from "~/data/finance.server";
@@ -30,14 +29,10 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 
 const Property = () => {
   const { property } = useLoaderData<typeof loader>();
-  const { favourites } = useFavourites();
 
   return (
     <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
-      <PropertyCard
-        property={property}
-        isFavourited={favourites.has(property.id)}
-      />
+      <PropertyCard property={property} />
       <div className="h-max flex flex-col justify-center gap-10">
         <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />

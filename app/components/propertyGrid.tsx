@@ -29,11 +29,7 @@ const PropertyGrid = () => {
             favouritesOnly ? favourites.has(property.id) : true
           )
           .map((property) => (
-            <PropertyCard
-              key={property.id}
-              property={property}
-              isFavourited={favourites.has(property.id)}
-            />
+            <PropertyCard key={property.id} property={property} />
           ))}
       </div>
     </section>

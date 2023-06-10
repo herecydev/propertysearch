@@ -16,7 +16,8 @@
     "@vercel/remix": "^1.17.0",
     "isbot": "latest",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "remix-utils": "^6.4.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.17.0",

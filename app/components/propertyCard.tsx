@@ -1,11 +1,10 @@
 import { Link } from "@remix-run/react";
+import { ClientOnly } from "remix-utils";
 import { PropertyDetail, PropertySummary } from "~/models/properties";
 import { currencyFormat } from "~/utilities/intl";
+import Favourite from "./favourite";
 import Bath from "./icons/bath";
 import Bed from "./icons/bed";
-import Heart from "./icons/heart";
-import HeartFilled from "./icons/heartFilled";
-import { useFavourites } from "./favouritesContextProvider";
 
 const Icon = ({ icon, count }: { icon: JSX.Element; count: number }) => (
   <div className="flex gap-2">
@@ -16,12 +15,9 @@ const Icon = ({ icon, count }: { icon: JSX.Element; count: number }) => (
 
 const PropertyCard = ({
   property,
-  isFavourited,
 }: {
   property: PropertyDetail | PropertySummary;
-  isFavourited: boolean;
 }) => {
-  const { toggleFavourite } = useFavourites();
   const hasSummary = "summary" in property;
 
   return (
@@ -48,16 +44,9 @@ const PropertyCard = ({
               {currencyFormat.format(property.price)}
             </span>
           </header>
-          <button
-            onClick={() => toggleFavourite(property.id)}
-            className="hover:scale-150 scale-125 z-10 p-2"
-          >
-            {isFavourited ? (
-              <HeartFilled title="Unfavourite" />
-            ) : (
-              <Heart title="Favourite" />
-            )}
-          </button>
+          <ClientOnly>
+            {() => <Favourite propertyId={property.id} />}
+          </ClientOnly>
         </div>
         <div className="flex gap-4 my-4">
           <Icon
