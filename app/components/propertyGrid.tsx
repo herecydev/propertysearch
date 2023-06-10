@@ -1,12 +1,13 @@
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import type { loader } from "~/routes/_index";
+import { useFavourites } from "./favouritesContextProvider";
 import PropertyCard from "./propertyCard";
 
 const PropertyGrid = () => {
-  const { properties, favouriteProperties } = useLoaderData<typeof loader>();
+  const { properties } = useLoaderData<typeof loader>();
   const [favouritesOnly, setFavouritesOnly] = useState(false);
-  const favouritePropertiesSet = new Set(favouriteProperties);
+  const { favourites } = useFavourites();
 
   return (
     <section className="xl:container mx-auto">
@@ -25,13 +26,13 @@ const PropertyGrid = () => {
       >
         {properties
           .filter((property) =>
-            favouritesOnly ? favouritePropertiesSet.has(property.id) : true
+            favouritesOnly ? favourites.has(property.id) : true
           )
           .map((property) => (
             <PropertyCard
               key={property.id}
               property={property}
-              isFavourited={favouritePropertiesSet.has(property.id)}
+              isFavourited={favourites.has(property.id)}
             />
           ))}
       </div>

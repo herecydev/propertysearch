@@ -1,10 +1,11 @@
-import { Link, useFetcher } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import { PropertyDetail, PropertySummary } from "~/models/properties";
 import { currencyFormat } from "~/utilities/intl";
 import Bath from "./icons/bath";
 import Bed from "./icons/bed";
 import Heart from "./icons/heart";
 import HeartFilled from "./icons/heartFilled";
+import { useFavourites } from "./favouritesContextProvider";
 
 const Icon = ({ icon, count }: { icon: JSX.Element; count: number }) => (
   <div className="flex gap-2">
@@ -20,13 +21,8 @@ const PropertyCard = ({
   property: PropertyDetail | PropertySummary;
   isFavourited: boolean;
 }) => {
-  const fetcher = useFetcher();
+  const { toggleFavourite } = useFavourites();
   const hasSummary = "summary" in property;
-
-  // We can use optimistic UI patterns to make this transition feel instant even if we're waiting for the server
-  const togglingFavourite =
-    fetcher.state === "submitting" || fetcher.state === "loading";
-  const showFilledHeart = togglingFavourite ? !isFavourited : isFavourited;
 
   return (
     <article
@@ -52,17 +48,16 @@ const PropertyCard = ({
               {currencyFormat.format(property.price)}
             </span>
           </header>
-          <fetcher.Form method="post" className="z-10">
-            <input type="hidden" name="_action" value="favourite" />
-            <input type="hidden" name="id" value={property.id} />
-            <button className="hover:scale-150 scale-125 p-2">
-              {showFilledHeart ? (
-                <HeartFilled title="Unfavourite" />
-              ) : (
-                <Heart title="Favourite" />
-              )}
-            </button>
-          </fetcher.Form>
+          <button
+            onClick={() => toggleFavourite(property.id)}
+            className="hover:scale-150 scale-125 z-10 p-2"
+          >
+            {isFavourited ? (
+              <HeartFilled title="Unfavourite" />
+            ) : (
+              <Heart title="Favourite" />
+            )}
+          </button>
         </div>
         <div className="flex gap-4 my-4">
           <Icon

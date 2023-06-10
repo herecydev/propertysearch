@@ -10,6 +10,7 @@ import {
 
 import styles from "./tailwind.css";
 import Icon from "./components/icons/home";
+import FavouritesContextProvider from "./components/favouritesContextProvider";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -27,7 +28,9 @@ export default function App() {
         <header>
           <Icon />
         </header>
-        <Outlet />
+        <FavouritesContextProvider>
+          <Outlet />
+        </FavouritesContextProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

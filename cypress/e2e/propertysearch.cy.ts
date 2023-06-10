@@ -50,6 +50,15 @@ describe("Property search", () => {
         .children()
         .should("have.length", properties.length);
     });
+
+    it("Allows a user to favourite properties", () => {
+      cy.get(`[data-testid="property-${firstProperty.sys.id}"] button`).click();
+      cy.contains("Just my favourites").click();
+
+      cy.get(`[data-testid="properties"]`).children().should("have.length", 1);
+      cy.contains("Just my favourites").click();
+      cy.get(`[data-testid="properties"]`).children().should("have.length", 2);
+    });
   });
 
   describe("Property page", () => {
@@ -82,18 +91,18 @@ describe("Property search", () => {
         cy.contains("Mortgage Calculator");
 
         // Check default values
-        cy.get("[name='mortgageDeposit']").should(
+        cy.get("[name='deposit']").should(
           "have.value",
           firstProperty.price / 5
         );
-        cy.get("[name='mortgageInterest']").should("have.value", 4.5);
-        cy.get("[name='mortgageTerm']").should("have.value", 30);
+        cy.get("[name='interest']").should("have.value", 4.5);
+        cy.get("[name='term']").should("have.value", 30);
 
         cy.get("button").click();
         cy.contains("$2,089 /month");
 
         // Check that the interest rate/term does influence the value
-        cy.get("[name='mortgageTerm']").clear().type("10");
+        cy.get("[name='term']").clear().type("10");
         cy.get("button").click();
         cy.contains("$3,867 /month");
       });

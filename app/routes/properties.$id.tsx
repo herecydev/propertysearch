@@ -1,12 +1,11 @@
 import { useLoaderData } from "@remix-run/react";
-import { ActionArgs, LoaderArgs, json, redirect } from "@vercel/remix";
+import { LoaderArgs, json, redirect } from "@vercel/remix";
 import EstateAgentProfile from "~/components/estateAgentProfile";
+import { useFavourites } from "~/components/favouritesContextProvider";
 import Finance from "~/components/finance";
 import PropertyCard from "~/components/propertyCard";
-import { toggleFavourite } from "~/data/favourites.server";
 import { calculateInterest } from "~/data/finance.server";
 import { getProperty } from "~/data/properties.server";
-import { getSession } from "~/sessions";
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
@@ -14,7 +13,6 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   }
 
   const property = await getProperty(params.id);
-  const session = await getSession(request.headers.get("Cookie"));
   const searchParams = new URL(request.url).searchParams;
 
   const deposit = searchParams.get("deposit");
@@ -23,7 +21,6 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 
   return json({
     property,
-    favouriteProperties: session.get("favouriteProperties") ?? [],
     totalInterest:
       deposit && interest && term
         ? await calculateInterest(property.id, +deposit, +interest, +term)
@@ -31,29 +28,15 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   });
 };
 
-export const action = async ({ request, params }: ActionArgs) => {
-  if (!params.id) {
-    return redirect("/");
-  }
-
-  return json(null, {
-    headers: {
-      "Set-Cookie": await toggleFavourite(request, params.id),
-    },
-  });
-};
-
 const Property = () => {
-  const { property, favouriteProperties } = useLoaderData<typeof loader>();
-  const isFavourited = favouriteProperties.some(
-    (favourite) => favourite === property.id
-  );
+  const { property } = useLoaderData<typeof loader>();
+  const { favourites } = useFavourites();
 
   return (
     <main className="mt-10 gap-8 flex justify-center max-lg:flex-wrap">
       <PropertyCard
         property={property}
-        isFavourited={isFavourited}
+        isFavourited={favourites.has(property.id)}
       />
       <div className="h-max flex flex-col justify-center gap-10">
         <EstateAgentProfile estateAgent={property.estateAgent} />
