@@ -16,3 +16,6 @@ jobs:
       - run: yarn
       - name: Cypress run
         uses: cypress-io/github-action@v5
+        with:
+          start: yarn test:server
+          wait-on: "http://localhost:8080"
