@@ -25,7 +25,7 @@ describe("Property search", () => {
       cy.get("[data-testid='search']").within(() => {
         cy.contains("Find the perfect property today to buy or rent");
 
-        cy.get("input").type(firstProperty.title);
+        cy.get("input").type(firstProperty.title, { force: true });
         cy.get("button").click();
       });
 
