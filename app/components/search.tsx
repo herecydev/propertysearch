@@ -25,7 +25,7 @@ const Search = ({
         aria-label="Property location"
         name="search"
         placeholder="Brisbane"
-        className="border border-slate-400 disabled:border-red-800 rounded-md px-3 w-full"
+        className="border border-slate-400 rounded-md px-3 w-full"
       />
       <Button>Search</Button>
     </Form>
