@@ -7,11 +7,6 @@ describe("Property search", () => {
   describe("Index page", () => {
     beforeEach(() => {
       cy.visit("/");
-
-      // This is, unfortunately the recommended way to deal with the react 18 hydration issue
-      // What's really happening is that Cypress is able to find the input that's statically generated,
-      // but is clashing with React's hydration, so introducing a small wait to postpone until after React has replaced the server HTML with a full client representation
-      cy.wait(500);
     });
 
     it("Displays all properties", () => {
