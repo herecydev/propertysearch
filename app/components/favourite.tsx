@@ -8,12 +8,12 @@ const Favourite = ({ propertyId }: { propertyId: string }) => {
   return (
     <button
       onClick={() => toggleFavourite(propertyId)}
-      className="hover:scale-150 z-10 p-2"
+      className="hover:scale-150 transition-all z-10 p-2"
     >
       {favourites.has(propertyId) ? (
-        <HeartFilled title="Unfavourite" />
+        <HeartFilled title="Remove from favourites" />
       ) : (
-        <Heart title="Favourite" />
+        <Heart title="Add to favourites" />
       )}
     </button>
   );

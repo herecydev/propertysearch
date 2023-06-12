@@ -23,7 +23,7 @@ const PropertyCard = ({
   return (
     <article
       data-testid={`property-${property.id}`}
-      className={`relative bg-white rounded-md flex flex-col max-w-lg h-full ${
+      className={`relative bg-white rounded-md flex flex-col h-full ${
         hasSummary && "group"
       }`}
     >
@@ -37,7 +37,7 @@ const PropertyCard = ({
         />
       </picture>
       <div className="p-6">
-        <div className="flex justify-between items-center gap-8 text-lg">
+        <div className="flex justify-between items-start gap-8 text-lg">
           <header>
             <h1 className="uppercase">{property.title}</h1>
             <span className="font-semibold text-teal-700">

@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { LoaderArgs, json, redirect } from "@vercel/remix";
 import EstateAgentProfile from "~/components/estateAgentProfile";
 import Finance from "~/components/finance";
@@ -31,9 +31,12 @@ const Property = () => {
   const { property } = useLoaderData<typeof loader>();
 
   return (
-    <main className="w-full mt-10 mx-auto grid justify-center gap-8 grid-cols-[minmax(auto,35rem)] lg:grid-cols-[35rem_20rem]">
+    <main className="mt-12 grid justify-center gap-8 grid-cols-[minmax(auto,35rem)] lg:grid-cols-[35rem_20rem]">
+      <Link to="/" className="text-emerald-700 ms-1 underline lg:col-span-2">
+        Back to all properties
+      </Link>
       <PropertyCard property={property} />
-      <aside className="h-max flex flex-col justify-center gap-10">
+      <aside className="h-max flex flex-wrap justify-center gap-10">
         <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />
       </aside>
