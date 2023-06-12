@@ -7,6 +7,11 @@ describe("Property search", () => {
   describe("Index page", () => {
     beforeEach(() => {
       cy.visit("/");
+      
+      // This is, unfortunately the recommended way to deal with the react 18 hydration issue
+      // What's really happening is that it's able to find the input that's statically generated, but during hydration
+      // Cypress is clashing with React's hydration, so adding that wait to postpone until after React has replaced the server HTML with client
+      cy.wait(500);
     });
 
     it("Displays all properties", () => {
@@ -24,11 +29,6 @@ describe("Property search", () => {
     it("Allows a user to search for properties", () => {
       cy.get("[data-testid='search']").within(() => {
         cy.contains("Find the perfect property today to buy or rent");
-
-        // This is, unfortunately the recommended way to deal with the react 18 hydration issue
-        // What's really happening is that it's able to find the input that's statically generated, but during hydration
-        // Cypress is clashing with React's hydration, so adding that wait to postpone until after React has replaced the server HTML with client
-        cy.wait(200);
         cy.get("input").type(firstProperty.title);
         cy.get("button").click();
       });
