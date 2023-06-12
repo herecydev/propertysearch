@@ -25,7 +25,10 @@ describe("Property search", () => {
       cy.get("[data-testid='search']").within(() => {
         cy.contains("Find the perfect property today to buy or rent");
 
-        cy.get("input").type(firstProperty.title);
+        cy.get("input").should(el => {
+          expect(el[0].tagName.toLowerCase()).to.eq("input")
+          expect(el[0].type.toLowerCase()).to.eq("text")
+        }).type(firstProperty.title);
         cy.get("button").click();
       });
 
