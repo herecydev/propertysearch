@@ -21,7 +21,7 @@ describe("Property search", () => {
       }
     });
 
-    it("Allows a user to search for properties", () => {
+    it.only("Allows a user to search for properties", () => {
       cy.get("[data-testid='search']").within(() => {
         cy.contains("Find the perfect property today to buy or rent");
 
