@@ -1,9 +1,6 @@
 name: test
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -13,5 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - run: yarn
       - run: yarn test:ci
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore
