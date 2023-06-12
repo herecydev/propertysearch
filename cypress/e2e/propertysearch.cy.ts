@@ -21,11 +21,13 @@ describe("Property search", () => {
       }
     });
 
-    it.only("Allows a user to search for properties", () => {
+    it("Allows a user to search for properties", () => {
       cy.get("[data-testid='search']").within(() => {
         cy.contains("Find the perfect property today to buy or rent");
 
-        // This is the recommended way to deal with the react 18 hydration issue
+        // This is, unfortunately the recommended way to deal with the react 18 hydration issue
+        // What's really happening is that it's able to find the input that's statically generated, but during hydration
+        // Cypress is clashing with React's hydration, so adding that wait to postpone until after React has replaced the server HTML with client
         cy.wait(200);
         cy.get("input").type(firstProperty.title);
         cy.get("button").click();
