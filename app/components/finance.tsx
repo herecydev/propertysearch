@@ -60,6 +60,13 @@ const Finance = () => {
         <input type="hidden" name="_action" value="calculate" />
         <div className="flex flex-col gap-4 my-6 mx-8">
           <FinanceInput
+            name="cost"
+            maxLength={8}
+            defaultValue={property.price}
+            label="Property value"
+            unit="$"
+          />
+          <FinanceInput
             name="deposit"
             maxLength={5}
             defaultValue={searchParams.get("deposit") ?? property.price / 5}
@@ -82,7 +89,7 @@ const Finance = () => {
             />
           </div>
         </div>
-        {totalInterest && (
+        {totalInterest !== null && (
           <span className="mb-6 font-light text-3xl">
             {currencyFormat.format(totalInterest)}{" "}
             <span className="text-xl">/month</span>

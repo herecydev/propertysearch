@@ -24,7 +24,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-blue-100/50 m-3 md:m-6">
+      <body className="xl:container mx-auto bg-blue-100/50 p-3 md:p-6">
         <header>
           <Icon />
         </header>

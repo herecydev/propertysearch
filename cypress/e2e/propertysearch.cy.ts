@@ -90,6 +90,7 @@ describe("Property search", () => {
         cy.contains("Mortgage Calculator");
 
         // Check default values
+        cy.get("[name='cost']").should("have.value", firstProperty.price);
         cy.get("[name='deposit']").should(
           "have.value",
           firstProperty.price / 5

@@ -14,6 +14,7 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   const property = await getProperty(params.id);
   const searchParams = new URL(request.url).searchParams;
 
+  const cost = searchParams.get("cost");
   const deposit = searchParams.get("deposit");
   const interest = searchParams.get("interest");
   const term = searchParams.get("term");
@@ -21,8 +22,8 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   return json({
     property,
     totalInterest:
-      deposit && interest && term
-        ? await calculateInterest(property.id, +deposit, +interest, +term)
+      cost && deposit && interest && term
+        ? await calculateInterest(+cost, +deposit, +interest, +term)
         : null,
   });
 };
