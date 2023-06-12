@@ -8,7 +8,7 @@
     "dev": "remix dev",
     "test:server": "binode --require ./mocks -- @remix-run/dev:remix dev",
     "test": "start-test test:server 3000 'cypress open --e2e'",
-    "test:ci": "start-test test:server 3000 'cypress run --e2e'"
+    "test:ci": "start-test test:server 3000 'cypress run --e2e --browser chrome'"
   },
   "dependencies": {
     "@remix-run/node": "^1.17.0",
