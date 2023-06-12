@@ -31,7 +31,7 @@ export default function App() {
         <FavouritesContextProvider>
           <Outlet />
         </FavouritesContextProvider>
-        {/* <ScrollRestoration /> */}
+        <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
