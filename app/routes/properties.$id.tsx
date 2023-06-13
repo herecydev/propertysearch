@@ -6,6 +6,12 @@ import PropertyCard from "~/components/propertyCard";
 import { calculateInterest } from "~/data/finance.server";
 import { getProperty } from "~/data/properties.server";
 
+const cacheHeaders = {
+  "Cache-Control": "max-age=86400, s-maxage=86400",
+};
+
+export const headers = () => cacheHeaders;
+
 export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
     return redirect("/");
@@ -19,13 +25,18 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   const interest = searchParams.get("interest");
   const term = searchParams.get("term");
 
-  return json({
-    property,
-    totalInterest:
-      cost && deposit && interest && term
-        ? await calculateInterest(+cost, +deposit, +interest, +term)
-        : null,
-  });
+  return json(
+    {
+      property,
+      totalInterest:
+        cost && deposit && interest && term
+          ? await calculateInterest(+cost, +deposit, +interest, +term)
+          : null,
+    },
+    {
+      headers: cacheHeaders,
+    }
+  );
 };
 
 const Property = () => {
