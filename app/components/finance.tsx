@@ -62,7 +62,7 @@ const Finance = () => {
           <FinanceInput
             name="cost"
             maxLength={8}
-            defaultValue={property.price}
+            defaultValue={searchParams.get("cost") ?? property.price}
             label="Property value"
             unit="$"
           />

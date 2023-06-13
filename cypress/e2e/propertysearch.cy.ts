@@ -99,12 +99,12 @@ describe("Property search", () => {
         cy.get("[name='term']").should("have.value", 30);
 
         cy.get("button").click();
-        cy.contains("$2,089 /month");
+        cy.contains("$1,621 /month");
 
         // Check that the interest rate/term does influence the value
         cy.get("[name='term']").clear().type("10");
         cy.get("button").click();
-        cy.contains("$3,867 /month");
+        cy.contains("$3,316 /month");
       });
     });
   });

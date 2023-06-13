@@ -1,20 +1,18 @@
-export const calculateInterest = async (
+export const calculateInterest = (
   cost: number,
   deposit: number,
   interest: number,
   term: number
 ) => {
-  // This is totally not how you calculate compound interest 😂
   const loan = cost - deposit;
 
   if (loan < 0) {
     return 0;
   }
 
-  const annualInterest = loan * (interest / 100);
-  const totalInterest = annualInterest * term;
-  const total = loan + totalInterest;
-  const monthlyCost = total / term / 12;
+  const numberOfPayments = term * 12;
+  const interestPerMonth = interest / 100 / 12;
+  const totalInterest = Math.pow(1 + interestPerMonth, numberOfPayments);
 
-  return monthlyCost;
+  return loan * ((interestPerMonth * totalInterest) / (totalInterest - 1));
 };
