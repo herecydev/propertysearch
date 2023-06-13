@@ -30,7 +30,7 @@ export const loader = async ({ request, params }: LoaderArgs) => {
       property,
       totalInterest:
         cost && deposit && interest && term
-          ? await calculateInterest(+cost, +deposit, +interest, +term)
+          ? calculateInterest(+cost, +deposit, +interest, +term)
           : null,
     },
     {
