@@ -6,6 +6,10 @@ import PropertyCard from "~/components/propertyCard";
 import { calculateInterest } from "~/data/finance.server";
 import { getProperty } from "~/data/properties.server";
 
+export const headers = () => ({
+  "Cache-Control": "s-maxage=86400",
+});
+
 export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
     return redirect("/");
