@@ -14,13 +14,20 @@ export const loader = async ({ request }: LoaderArgs) => {
   const search = new URL(request.url).searchParams.get("search");
   const properties = await getProperties();
 
-  return json({
-    properties: search
-      ? properties.filter((property) =>
-          property.title.toLowerCase().includes(search.toLowerCase())
-        )
-      : properties,
-  });
+  return json(
+    {
+      properties: search
+        ? properties.filter((property) =>
+            property.title.toLowerCase().includes(search.toLowerCase())
+          )
+        : properties,
+    },
+    {
+      headers: {
+        "Cache-Control": "max-age=86400, s-maxage=86400",
+      },
+    }
+  );
 };
 
 const Index = () => {
