@@ -6,9 +6,11 @@ import PropertyCard from "~/components/propertyCard";
 import { calculateInterest } from "~/data/finance.server";
 import { getProperty } from "~/data/properties.server";
 
-export const headers = () => ({
+const cacheHeaders = {
   "Cache-Control": "max-age=86400, s-maxage=86400",
-});
+};
+
+export const headers = () => cacheHeaders;
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   if (!params.id) {
@@ -32,9 +34,7 @@ export const loader = async ({ request, params }: LoaderArgs) => {
           : null,
     },
     {
-      headers: {
-        "Cache-Control": "max-age=86400, s-maxage=86400",
-      },
+      headers: cacheHeaders,
     }
   );
 };

@@ -6,9 +6,11 @@ import PropertyGrid from "~/components/propertyGrid";
 import Search from "~/components/search";
 import { getProperties } from "~/data/properties.server";
 
-export const headers = () => ({
+const cacheHeaders = {
   "Cache-Control": "max-age=86400, s-maxage=86400",
-});
+};
+
+export const headers = () => cacheHeaders;
 
 export const loader = async ({ request }: LoaderArgs) => {
   const search = new URL(request.url).searchParams.get("search");
@@ -23,9 +25,7 @@ export const loader = async ({ request }: LoaderArgs) => {
         : properties,
     },
     {
-      headers: {
-        "Cache-Control": "max-age=86400, s-maxage=86400",
-      },
+      headers: cacheHeaders,
     }
   );
 };
