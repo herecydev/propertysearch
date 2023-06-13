@@ -7,7 +7,7 @@ import { calculateInterest } from "~/data/finance.server";
 import { getProperty } from "~/data/properties.server";
 
 export const headers = () => ({
-  "Cache-Control": "s-maxage=86400",
+  "Cache-Control": "max-age=86400, s-maxage=86400",
 });
 
 export const loader = async ({ request, params }: LoaderArgs) => {
