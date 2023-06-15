@@ -2,13 +2,7 @@ import { Form, useSearchParams } from "@remix-run/react";
 import Button from "./common/button";
 import TextInput from "./common/textInput";
 
-const Search = ({
-  favourites,
-  toggleFavourites,
-}: {
-  favourites: boolean;
-  toggleFavourites: () => void;
-}) => {
+const Search = () => {
   const [searchParams] = useSearchParams();
   const defaultValue = searchParams.get("search") ?? undefined;
 
@@ -31,15 +25,6 @@ const Search = ({
           <Button>Search</Button>
         </Form>
       </div>
-      <label className="text-lg font-light">
-        <input
-          type="checkbox"
-          className="mr-2 mt-6 w-4 h-4 accent-emerald-300"
-          checked={favourites}
-          onChange={toggleFavourites}
-        />
-        Just my favourites
-      </label>
     </section>
   );
 };

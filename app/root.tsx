@@ -1,4 +1,3 @@
-import type { LinksFunction } from "@vercel/remix";
 import {
   Links,
   LiveReload,
@@ -7,10 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-
-import styles from "./tailwind.css";
-import Icon from "./components/icons/home";
+import type { LinksFunction } from "@vercel/remix";
 import FavouritesContextProvider from "./components/favouritesContextProvider";
+import Header from "./components/header";
+import styles from "./tailwind.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -24,12 +23,12 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="xl:container mx-auto bg-blue-100/50 p-3 md:p-6">
-        <header>
-          <Icon />
-        </header>
+      <body className="bg-blue-100/50">
         <FavouritesContextProvider>
-          <Outlet />
+          <Header />
+          <main className="xl:container mx-auto p-3 md:p-6">
+            <Outlet />
+          </main>
         </FavouritesContextProvider>
         <ScrollRestoration />
         <Scripts />

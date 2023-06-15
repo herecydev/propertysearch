@@ -43,7 +43,7 @@ const Property = () => {
   const { property } = useLoaderData<typeof loader>();
 
   return (
-    <main className="mt-12 grid justify-center gap-8 grid-cols-[minmax(auto,35rem)] lg:grid-cols-[35rem_20rem]">
+    <div className="mt-8 grid justify-center gap-8 grid-cols-[minmax(auto,35rem)] lg:grid-cols-[35rem_20rem]">
       <Link to="/" className="text-emerald-700 ms-1 underline lg:col-span-2">
         Back to all properties
       </Link>
@@ -52,7 +52,7 @@ const Property = () => {
         <EstateAgentProfile estateAgent={property.estateAgent} />
         <Finance />
       </aside>
-    </main>
+    </div>
   );
 };
 
