@@ -14,9 +14,9 @@
     "test:ci": "start-test test:server 3000 'cypress run --e2e --quiet'"
   },
   "dependencies": {
-    "@remix-run/node": "^1.17.0",
-    "@remix-run/react": "^1.17.0",
-    "@remix-run/serve": "^1.17.0",
+    "@remix-run/node": "^1.17.1",
+    "@remix-run/react": "^1.17.1",
+    "@remix-run/serve": "^1.17.1",
     "@vercel/remix": "^1.17.0",
     "isbot": "latest",
     "react": "^18.2.0",
@@ -24,13 +24,13 @@
     "remix-utils": "^6.4.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.17.0",
+    "@remix-run/dev": "^1.17.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.14",
     "binode": "^1.0.5",
     "cypress": "^12.14.0",
-    "msw": "^1.2.1",
+    "msw": "^1.2.2",
     "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.0"

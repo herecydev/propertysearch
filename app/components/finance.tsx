@@ -5,7 +5,7 @@ import {
   useSubmit,
 } from "@remix-run/react";
 import { ComponentPropsWithoutRef } from "react";
-import { loader } from "~/routes/properties.$id";
+import type { loader } from "~/routes/properties.$id";
 import { currencyFormat } from "~/utilities/intl";
 import Button from "./common/button";
 import TextInput from "./common/textInput";
