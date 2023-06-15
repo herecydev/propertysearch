@@ -9,6 +9,15 @@ import { loader } from "~/routes/properties.$id";
 import { currencyFormat } from "~/utilities/intl";
 import Button from "./common/button";
 import TextInput from "./common/textInput";
+import Chart from "./icons/chart";
+
+const calculateEquity = (cost: number, deposit: number) => {
+  if (cost < 0 || isNaN(cost) || isNaN(deposit)) {
+    return 0;
+  }
+
+  return Math.min((deposit * 100) / cost, 100);
+};
 
 const FinanceInput = ({
   label,
@@ -44,6 +53,11 @@ const Finance = () => {
   const [searchParams] = useSearchParams();
   const submit = useSubmit();
 
+  const cost = parseInt(searchParams.get("cost") ?? property.price.toString());
+  const deposit = parseInt(
+    searchParams.get("deposit") ?? (property.price / 5).toString()
+  );
+
   return (
     <section data-testid="finance" className="bg-white rounded-md p-5 max-w-xs">
       <h1 className="text-2xl text-center">Mortgage Calculator</h1>
@@ -58,35 +72,41 @@ const Finance = () => {
         }}
       >
         <input type="hidden" name="_action" value="calculate" />
-        <div className="flex flex-col gap-4 my-6 mx-8">
+        <div className="flex flex-col gap-4 items-center my-6 mx-4">
           <FinanceInput
             name="cost"
             maxLength={8}
-            defaultValue={searchParams.get("cost") ?? property.price}
+            defaultValue={cost}
             label="Property value"
             unit="$"
           />
           <FinanceInput
             name="deposit"
-            maxLength={5}
-            defaultValue={searchParams.get("deposit") ?? property.price / 5}
+            maxLength={8}
+            defaultValue={deposit}
             label="Deposit"
             unit="$"
           />
-          <div className="flex gap-6">
-            <FinanceInput
-              name="interest"
-              maxLength={5}
-              defaultValue={searchParams.get("interest") ?? 4.5}
-              label="Interest"
-              unit="%"
-            />
-            <FinanceInput
-              name="term"
-              maxLength={2}
-              label="Years"
-              defaultValue={searchParams.get("term") ?? 30}
-            />
+          <div className="flex gap-8 items-end">
+            <div className="flex flex-col gap-4">
+              <FinanceInput
+                name="interest"
+                maxLength={4}
+                defaultValue={searchParams.get("interest") ?? 4.5}
+                label="Interest"
+                unit="%"
+              />
+              <FinanceInput
+                name="term"
+                maxLength={2}
+                label="Years"
+                defaultValue={searchParams.get("term") ?? 30}
+              />
+            </div>
+            <div className="flex flex-col gap-1 items-center">
+              <Chart value={calculateEquity(cost, deposit)} />
+              <span className="font-light">Equity</span>
+            </div>
           </div>
         </div>
         {totalInterest !== null && (

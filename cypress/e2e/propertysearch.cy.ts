@@ -52,10 +52,10 @@ describe("Property search", () => {
 
     it("Allows a user to favourite properties", () => {
       cy.get(`[data-testid="property-${firstProperty.sys.id}"] button`).click();
-      cy.contains("Just my favourites").click();
+      cy.contains("My favourites").click();
 
       cy.get(`[data-testid="properties"]`).children().should("have.length", 1);
-      cy.contains("Just my favourites").click();
+      cy.contains("My favourites").click();
       cy.get(`[data-testid="properties"]`).children().should("have.length", 2);
     });
   });

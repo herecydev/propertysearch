@@ -1,6 +1,7 @@
 const Toggle = ({ checked }: { checked: boolean }) => {
   return (
     <svg width="64" height="32" viewBox="0 0 64 32" fill="none">
+      <title>My favourites</title>
       <rect
         width="64"
         height="32"

@@ -8,5 +8,6 @@ module.exports = {
     v2_headers: true,
   },
   serverModuleFormat: "cjs",
-  tailwind: true
+  tailwind: true,
+  postcss: true,
 };
