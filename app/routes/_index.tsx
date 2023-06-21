@@ -9,6 +9,8 @@ const cacheHeaders = {
   "Cache-Control": "max-age=86400, s-maxage=86400",
 };
 
+export const config = { runtime: "edge" };
+
 export const headers = () => cacheHeaders;
 
 export const loader = async ({ request }: LoaderArgs) => {
